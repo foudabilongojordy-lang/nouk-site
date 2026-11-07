@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["C97FKX6388.app.getnouk.Nouk"],
+        "components": [ { "/": "/i/*", "comment": "Invitations au foyer" } ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Nouk</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111113'/%3E%3Crect x='25' y='12' width='14' height='26' rx='7' fill='none' stroke='%23FF6B12' stroke-width='5'/%3E%3Cpath d='M17 31a15 15 0 0 0 30 0M32 46v7' fill='none' stroke='%23FF6B12' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Maquette « 44 — Page web d'invitation (Safari) » : une colonne, le code au centre, un seul bouton noir.
+   GitHub Pages sert cette page pour toute adresse inconnue : /i/CODE affiche l'invitation, le reste renvoie à l'accueil. */
+:root { --paper:#fff; --paper-2:#f4f4f1; --ink:#111113; --ink-2:#4a4a4f; --muted:#6c6c70; --line:#e4e4e0;
+  --orange:#ff6b12; --orange-text:#bf4800; --orange-soft:#fff1e8; --orange-line:#ffc9a6;
+  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif; --body:"Atkinson Hyperlegible","Helvetica Neue",Arial,system-ui,sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper:#0b0b0c; --paper-2:#161618; --ink:#f5f5f3; --ink-2:#c9c9c6; --muted:#9a9aa0; --line:#2a2a2d;
+  --orange-text:#ff8a3d; --orange-soft:#2a1608; --orange-line:#6b3410; color-scheme:dark; } }
+:root[data-theme="dark"] { --paper:#0b0b0c; --paper-2:#161618; --ink:#f5f5f3; --ink-2:#c9c9c6; --muted:#9a9aa0; --line:#2a2a2d;
+  --orange-text:#ff8a3d; --orange-soft:#2a1608; --orange-line:#6b3410; color-scheme:dark; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); font:17px/1.55 var(--body); -webkit-font-smoothing:antialiased; }
+main { max-width:440px; margin:0 auto; padding:max(36px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 40px max(16px, env(safe-area-inset-left)); display:flex; flex-direction:column; align-items:center; text-align:center; gap:18px; }
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; font:800 24px var(--display); letter-spacing:-0.02em; }
+.mark { width:38px; height:38px; border-radius:10px; background:#111113; display:grid; place-items:center; }
+.mark svg { width:20px; height:20px; }
+.avatars { display:flex; margin-top:10px; }
+.avatars span { width:46px; height:46px; border-radius:50%; display:grid; place-items:center; font:700 17px var(--body); color:#111113; border:3px solid var(--paper); margin-left:-10px; }
+.avatars span:first-child { margin-left:0; }
+h1 { font:800 clamp(28px, 8vw, 34px)/1.1 var(--display); letter-spacing:-0.02em; margin:0; text-wrap:balance; }
+.lede { color:var(--muted); margin:0; max-width:24em; }
+.code { width:100%; border:1.5px dashed var(--orange-line); background:var(--orange-soft); border-radius:18px; padding:16px; cursor:pointer; font:inherit; color:inherit; }
+.code .label { font:700 12px var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--orange-text); }
+.code .value { font:800 34px var(--display); letter-spacing:.18em; margin:4px 0 2px; }
+.code .hint { font-size:13px; color:var(--muted); }
+.btn { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:54px; border-radius:16px; font:700 17px var(--body); text-decoration:none; }
+.btn-dark { background:var(--ink); color:var(--paper); }
+.btn-ghost { background:var(--paper-2); color:var(--ink); }
+.btn svg { width:20px; height:20px; flex:none; }
+ol { list-style:none; padding:0; margin:4px 0 0; width:100%; display:grid; gap:10px; text-align:left; }
+ol li { display:flex; gap:12px; align-items:center; font-size:15px; color:var(--ink-2); }
+ol li b { width:24px; height:24px; flex:none; display:grid; place-items:center; border-radius:7px; background:var(--paper-2); font-size:13px; color:var(--ink); }
+.foot { font-size:13px; color:var(--muted); margin-top:8px; }
+.foot a { color:inherit; }
+:focus-visible { outline:3px solid var(--orange); outline-offset:3px; border-radius:8px; }
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<script>
+(function () {
+  // Pendant les tests : lien TestFlight. À la sortie : lien de la fiche App Store.
+  var INSTALL = 'https://testflight.apple.com/join/632TfWXW';
+  var T = {
+    fr: { title:'Tu es invité dans un foyer sur Nouk', lede:'La mémoire partagée de la maison : dis où tu ranges, retrouve en une question.', label:'Ton code d’invitation', hint:'Touche pour copier', copied:'Code copié', open:'Ouvrir dans Nouk', install:'Installer Nouk', steps:['Installe Nouk','Touche « Ouvrir dans Nouk » : l’invitation s’ouvre toute seule','Sinon, dans Nouk : Mon foyer › J’ai un code, puis entre le code ci-dessus'], lost:'Cette page n’existe pas.', home:'Retour à l’accueil' },
+    en: { title:'You’re invited to a household on Nouk', lede:'Your home’s shared memory: say where you put things, find them with one question.', label:'Your invitation code', hint:'Tap to copy', copied:'Code copied', open:'Open in Nouk', install:'Install Nouk', steps:['Install Nouk','Tap “Open in Nouk”: the invitation opens by itself','Otherwise, in Nouk: My household › I have a code, then enter the code above'], lost:'This page doesn’t exist.', home:'Back to home' },
+    de: { title:'Du bist in einen Haushalt auf Nouk eingeladen', lede:'Das gemeinsame Gedächtnis deines Zuhauses: Sag, wo du Dinge hinlegst, und finde sie mit einer Frage.', label:'Dein Einladungscode', hint:'Tippen zum Kopieren', copied:'Code kopiert', open:'In Nouk öffnen', install:'Nouk installieren', steps:['Installiere Nouk','Tippe auf „In Nouk öffnen“: Die Einladung öffnet sich von selbst','Sonst in Nouk: Mein Haushalt › Ich habe einen Code, dann den Code oben eingeben'], lost:'Diese Seite gibt es nicht.', home:'Zur Startseite' },
+    es: { title:'Te han invitado a un hogar en Nouk', lede:'La memoria compartida de tu casa: di dónde guardas las cosas y encuéntralas con una pregunta.', label:'Tu código de invitación', hint:'Toca para copiar', copied:'Código copiado', open:'Abrir en Nouk', install:'Instalar Nouk', steps:['Instala Nouk','Toca «Abrir en Nouk»: la invitación se abre sola','Si no, en Nouk: Mi hogar › Tengo un código, e introduce el código de arriba'], lost:'Esta página no existe.', home:'Volver al inicio' },
+    it: { title:'Sei invitato in una famiglia su Nouk', lede:'La memoria condivisa della casa: di’ dove metti le cose, ritrovale con una domanda.', label:'Il tuo codice di invito', hint:'Tocca per copiare', copied:'Codice copiato', open:'Apri in Nouk', install:'Installa Nouk', steps:['Installa Nouk','Tocca «Apri in Nouk»: l’invito si apre da solo','Altrimenti, in Nouk: La mia famiglia › Ho un codice, poi inserisci il codice qui sopra'], lost:'Questa pagina non esiste.', home:'Torna alla home' },
+    nl: { title:'Je bent uitgenodigd voor een huishouden op Nouk', lede:'Het gedeelde geheugen van je huis: zeg waar je dingen legt, vind ze met één vraag.', label:'Je uitnodigingscode', hint:'Tik om te kopiëren', copied:'Code gekopieerd', open:'Open in Nouk', install:'Nouk installeren', steps:['Installeer Nouk','Tik op ‘Open in Nouk’: de uitnodiging opent vanzelf','Anders in Nouk: Mijn huishouden › Ik heb een code, en voer de code hierboven in'], lost:'Deze pagina bestaat niet.', home:'Terug naar de homepage' },
+    pt: { title:'Foste convidado para uma casa no Nouk', lede:'A memória partilhada da casa: diz onde arrumas as coisas e encontra-as com uma pergunta.', label:'O teu código de convite', hint:'Toca para copiar', copied:'Código copiado', open:'Abrir no Nouk', install:'Instalar o Nouk', steps:['Instala o Nouk','Toca em «Abrir no Nouk»: o convite abre-se sozinho','Caso contrário, no Nouk: A minha casa › Tenho um código, e introduz o código acima'], lost:'Esta página não existe.', home:'Voltar ao início' }
+  };
+  var lang = 'en';
+  try { var ls = navigator.languages || [navigator.language]; for (var i = 0; i < ls.length; i++) { var c = String(ls[i] || '').slice(0, 2).toLowerCase(); if (T[c]) { lang = c; break; } } } catch (e) {}
+  var t = T[lang];
+  document.documentElement.lang = lang;
+  var MARK = '<span class="mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3" stroke="#FF6B12" stroke-width="2.4"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#FF6B12" stroke-width="2.4" stroke-linecap="round"/></svg></span>';
+  var APPLE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7ZM14.2 5.6c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3Z"/></svg>';
+  var app = document.getElementById('app');
+  var m = location.pathname.match(/\/i\/([A-Za-z0-9]{4,12})\/?$/);
+  if (!m) {
+    document.title = 'Nouk';
+    app.innerHTML = '<a class="brand" href="/">' + MARK + 'Nouk</a><h1>' + t.lost + '</h1><a class="btn btn-dark" href="/">' + t.home + '</a>';
+    return;
+  }
+  var code = m[1].toUpperCase();
+  document.title = t.title + ' · Nouk';
+  app.innerHTML =
+    '<a class="brand" href="/">' + MARK + 'Nouk</a>' +
+    '<div class="avatars" aria-hidden="true"><span style="background:#f5d9bf">·</span><span style="background:#c7dbf5">·</span><span style="background:#d1edd1">·</span></div>' +
+    '<h1>' + t.title + '</h1>' +
+    '<p class="lede">' + t.lede + '</p>' +
+    '<button class="code" id="code" type="button"><div class="label">' + t.label + '</div><div class="value">' + code + '</div><div class="hint" id="hint">' + t.hint + '</div></button>' +
+    '<a class="btn btn-dark" href="nouk://i/' + code + '">' + MARK.replace('class="mark"', 'class="mark" style="width:26px;height:26px;border-radius:7px;background:transparent"') + t.open + '</a>' +
+    '<a class="btn btn-ghost" href="' + INSTALL + '">' + APPLE + t.install + '</a>' +
+    '<ol>' + t.steps.map(function (s, i) { return '<li><b>' + (i + 1) + '</b>' + s + '</li>'; }).join('') + '</ol>' +
+    '<p class="foot"><a href="/#' + lang + '-privacy">' + (lang === 'fr' ? 'Confidentialité' : 'Privacy') + '</a></p>';
+  document.getElementById('code').addEventListener('click', function () {
+    var done = function () { document.getElementById('hint').textContent = t.copied; };
+    try { navigator.clipboard.writeText(code).then(done, function () {}); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
