@@ -1,0 +1,1747 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nouk : dis où tu ranges, retrouve en une question. La mémoire partagée de la maison, sur iPhone.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111113'/%3E%3Crect x='25' y='12' width='14' height='26' rx='7' fill='none' stroke='%23FF6B12' stroke-width='5'/%3E%3Cpath d='M17 31a15 15 0 0 0 30 0M32 46v7' fill='none' stroke='%23FF6B12' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>[hidden]{display:none!important} img{max-width:100%}</style>
+<title>Nouk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: one calm column of bands; the hero pairs the promise with a live phone demo of the single orange button. Content comes from per-language dictionaries, routed by hash (#de, #de-terms…). */
+:root {
+  --paper: #ffffff;
+  --paper-2: #f4f4f1;
+  --ink: #111113;
+  --ink-2: #4a4a4f;
+  --muted: #6c6c70;
+  --line: #e4e4e0;
+  --orange: #ff6b12;
+  --orange-text: #bf4800;
+  --orange-soft: #fff1e8;
+  --phone: #111113;
+  --phone-fg: #ffffff;
+  --phone-muted: #9a9aa0;
+  --phone-card: #1d1d20;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --radius: 18px;
+  --max: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0b0b0c; --paper-2: #161618; --ink: #f5f5f3; --ink-2: #c9c9c6; --muted: #9a9aa0; --line: #2a2a2d;
+    --orange-text: #ff8a3d; --orange-soft: #2a1608; --phone: #000000; --phone-card: #1c1c1e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0b0b0c; --paper-2: #161618; --ink: #f5f5f3; --ink-2: #c9c9c6; --muted: #9a9aa0; --line: #2a2a2d;
+  --orange-text: #ff8a3d; --orange-soft: #2a1608; --phone: #000000; --phone-card: #1c1c1e; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; text-wrap: balance; margin: 0; hyphens: auto; }
+h2 { font-size: clamp(30px, 5vw, 52px); }
+h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+p { margin: 0; }
+.eyebrow { font-family: var(--body); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange-text); }
+.lede { font-size: 19px; color: var(--ink-2); max-width: 34em; }
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+.mark { width: 34px; height: 34px; border-radius: 9px; background: #111113; display: grid; place-items: center; flex: none; }
+.mark svg { width: 18px; height: 18px; }
+.nav { display: flex; gap: 14px; align-items: center; font-size: 15px; }
+.nav .links { display: flex; gap: 22px; margin-right: 6px; }
+.nav .links a { text-decoration: none; color: var(--ink-2); }
+.nav .links a:hover { color: var(--ink); }
+.lang { position: relative; }
+.lang select { appearance: none; -webkit-appearance: none; font: 700 14px var(--body); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 10px; padding: 8px 28px 8px 11px; cursor: pointer; }
+.lang::after { content: ""; position: absolute; right: 11px; top: 50%; width: 6px; height: 6px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.lang option { color: #111113; background: #ffffff; }
+@media (max-width: 980px) { .nav .links { display: none; } }
+@media (max-width: 400px) { .nav .dl { display: none; } }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--body); font-weight: 700; font-size: 16px; text-decoration: none; border-radius: 14px; padding: 13px 20px; border: 0; cursor: pointer; transition: transform .15s ease; text-align: center; }
+.btn:hover { transform: translateY(-1px); }
+.btn-dark { background: var(--ink); color: var(--paper); }
+.btn-ghost { background: var(--paper-2); color: var(--ink); }
+.btn-small { padding: 9px 14px; font-size: 14px; border-radius: 11px; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; padding-block: 72px 80px; }
+.hero h1 { font-size: clamp(42px, 7vw, 84px); }
+.hero h1 em { font-style: normal; color: var(--orange-text); }
+.hero .copy { display: flex; flex-direction: column; gap: 26px; min-width: 0; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.fine { font-size: 14px; color: var(--muted); }
+@media (max-width: 880px) { .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-block: 44px 56px; } }
+
+/* Phone demo */
+.stage { display: flex; justify-content: center; }
+.phone { width: min(330px, 100%); aspect-ratio: 9 / 19; background: var(--phone); border-radius: 46px; padding: 14px; box-shadow: 0 0 0 10px #1f1f22, 0 30px 70px rgba(0,0,0,.22); position: relative; color: var(--phone-fg); }
+.screen { height: 100%; border-radius: 34px; background: var(--phone); display: flex; flex-direction: column; padding: 22px 18px 18px; overflow: hidden; }
+.screen-top { display: flex; justify-content: space-between; align-items: center; font-family: var(--display); font-weight: 800; font-size: 18px; }
+.rec { display: inline-flex; align-items: center; gap: 6px; font-family: var(--body); font-size: 13px; color: var(--phone-muted); opacity: 0; transition: opacity .2s; }
+.rec::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+.phone.listening .rec { opacity: 1; }
+.said { min-height: 96px; margin-top: 26px; font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.25; text-align: center; }
+.caret { display: inline-block; width: 2px; height: 1em; background: var(--orange); vertical-align: -0.12em; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.mic-area { flex: 1; display: grid; place-items: center; }
+.mic { width: 132px; height: 132px; border-radius: 50%; border: 0; background: #ffffff; display: grid; place-items: center; cursor: pointer; box-shadow: 0 0 0 22px rgba(255,255,255,.06), 0 0 0 44px rgba(255,255,255,.03); transition: background .2s, box-shadow .3s; }
+.mic svg { width: 48px; height: 48px; }
+.mic svg * { stroke: #111113; transition: stroke .2s; }
+.phone.listening .mic { background: var(--orange); box-shadow: 0 0 0 22px rgba(255,107,18,.18), 0 0 0 44px rgba(255,107,18,.08); }
+.phone.listening .mic svg * { stroke: #ffffff; }
+.card { background: var(--phone-card); border-radius: 20px; padding: 14px; display: grid; gap: 8px; transform: translateY(8px); opacity: 0; transition: opacity .3s, transform .3s; }
+.phone.done .card { opacity: 1; transform: none; }
+.field { background: rgba(255,255,255,.06); border-radius: 12px; padding: 8px 12px; }
+.field small { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--phone-muted); font-weight: 700; }
+.field span { font-size: 15px; font-weight: 700; }
+.hint { text-align: center; font-size: 13px; color: var(--muted); margin-top: 22px; }
+.demo-steps { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+.demo-steps i { width: 6px; height: 6px; border-radius: 3px; background: var(--line); transition: width .2s, background .2s; }
+.demo-steps i.on { width: 18px; background: var(--orange); }
+
+/* Bands */
+.band { padding-block: 88px; }
+.band.alt { background: var(--paper-2); }
+.band-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; max-width: 46em; }
+
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; list-style: none; padding: 0; margin: 0; counter-reset: s; }
+.steps li { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; display: flex; flex-direction: column; gap: 12px; counter-increment: s; min-width: 0; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 15px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-soft); color: var(--orange-text); }
+.quote { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1.3; }
+.steps p { color: var(--ink-2); }
+@media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+.phrases { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.phrases span { background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-size: 15px; color: var(--ink-2); }
+
+.house { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.house .copy { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.members { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; }
+.member { display: flex; align-items: center; gap: 14px; padding: 16px 18px; }
+.member + .member { border-top: 1px solid var(--line); }
+.av { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: #111113; flex: none; }
+.member div { flex: 1; min-width: 0; }
+.member strong { display: block; }
+.member small { color: var(--muted); font-size: 14px; }
+.role { font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 9px; background: var(--paper-2); }
+.role.kid { background: var(--orange-soft); color: var(--orange-text); }
+.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 10px; align-items: baseline; color: var(--ink-2); }
+.checks li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); transform: translateY(-1px); }
+@media (max-width: 860px) { .house { grid-template-columns: 1fr; } }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.feature { background: var(--paper); padding: 26px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.feature p { color: var(--ink-2); font-size: 16px; }
+@media (max-width: 860px) { .features { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+
+.privacy { background: #111113; color: #f5f5f3; border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; align-items: center; }
+.privacy > div { display: flex; flex-direction: column; gap: 16px; }
+.privacy h2 { color: #ffffff; }
+.privacy p { color: #c9c9c6; }
+.privacy .eyebrow { color: #ff8a3d; }
+.privacy ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.privacy li { padding: 14px 16px; border-radius: 14px; background: #1d1d20; color: #e8e8e5; }
+@media (max-width: 820px) { .privacy { grid-template-columns: 1fr; } }
+
+.toggle { display: inline-flex; flex-wrap: wrap; background: var(--paper); border-radius: 12px; padding: 4px; margin-top: 8px; align-self: flex-start; }
+.toggle button { font: 700 15px var(--body); color: var(--muted); background: transparent; border: 0; border-radius: 9px; padding: 9px 16px; cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plan { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.plan.best { border: 2px solid var(--orange); }
+.plan-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 9px; background: var(--orange); color: #111113; }
+.price { font-family: var(--display); font-weight: 800; font-size: 44px; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.price small { font-family: var(--body); font-weight: 400; font-size: 16px; color: var(--muted); letter-spacing: 0; }
+.per { font-size: 14px; color: var(--muted); min-height: 1.4em; margin-top: 6px; }
+.plan .checks { flex: 1; }
+.trial { margin-top: 22px; text-align: center; color: var(--ink-2); }
+@media (max-width: 900px) { .plans { grid-template-columns: 1fr; } }
+
+.faq { display: grid; gap: 10px; max-width: 760px; }
+.faq details { border: 1px solid var(--line); border-radius: 16px; padding: 4px 20px; background: var(--paper); }
+.faq summary { cursor: pointer; list-style: none; font-weight: 700; padding: 14px 0; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--display); font-size: 22px; line-height: 1; color: var(--orange-text); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding-bottom: 16px; color: var(--ink-2); }
+
+.final { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.final h2 { font-size: clamp(34px, 6vw, 64px); }
+footer { border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; padding-block: 32px; font-size: 14px; color: var(--muted); }
+footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+footer a { color: var(--ink-2); }
+
+.legal { padding-block: 48px 80px; }
+.legal .wrap { max-width: 780px; }
+.legal h1 { font-size: clamp(32px, 5vw, 48px); margin: 14px 0 6px; }
+.legal h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 36px 0 10px; }
+.legal p, .legal li { color: var(--ink-2); }
+.legal p + p { margin-top: 10px; }
+.legal ul { padding-left: 20px; margin: 10px 0; display: grid; gap: 6px; }
+.legal .meta { color: var(--muted); font-size: 15px; }
+.draft { margin-top: 18px; background: var(--orange-soft); color: var(--ink); border-radius: 14px; padding: 14px 16px; font-size: 15px; }
+.back { font-size: 15px; color: var(--orange-text); text-decoration: none; font-weight: 700; }
+.fill { background: var(--paper-2); border-radius: 6px; padding: 0 5px; color: var(--ink); font-weight: 700; }
+.tbl { overflow-x: auto; margin: 14px 0; }
+.tbl table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+.tbl th, .tbl td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl th { color: var(--ink); }
+.tbl td { color: var(--ink-2); }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" id="brand" href="#fr" aria-label="Nouk">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3" stroke="#FF6B12" stroke-width="2.4"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#FF6B12" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      Nouk
+    </a>
+    <nav class="nav" aria-label="Nouk">
+      <div class="links" id="nav-links"></div>
+      <label class="lang"><span class="sr" id="lang-label">Langue</span><select id="lang-select"></select></label>
+      <a class="btn btn-dark btn-small dl" id="nav-dl" href="#"></a>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap" id="foot"></div>
+</footer>
+
+<script>
+window.I18N = {};
+I18N.fr = {
+  code: 'fr', name: 'Français', langLabel: 'Langue',
+  nav: { how: 'Comment ça marche', household: 'Foyer', pricing: 'Prix', faq: 'Questions', download: 'Télécharger' },
+  hero: {
+    eyebrow: "L'app qui se souvient où tu ranges",
+    title: 'Dis où tu ranges. Retrouve en <em>une question.</em>',
+    lede: "Un seul bouton. Tu dis « J'ai mis les décos de Noël dans le bac rouge du garage », et le jour venu, toute la maison n'a plus qu'à demander à Nouk.",
+    cta: "Télécharger sur l'App Store", pricing: 'Voir les prix',
+    fine: "14 jours d'essai gratuits · iPhone · 7 langues",
+    hint: "Touche le bouton pour voir Nouk à l'œuvre", micLabel: 'Lancer la démonstration'
+  },
+  demos: [
+    { said: "J'ai mis le chargeur photo dans le tiroir du bureau.", k1: 'Objet', v1: 'Chargeur photo', k2: 'Lieu', v2: 'Tiroir du bureau', t: '0:03' },
+    { said: 'Où sont les décos de Noël ?', k1: 'Réponse', v1: 'Bac rouge, garage', k2: 'Rangé par', v2: 'Léa · il y a 10 mois', t: '0:02' },
+    { said: "J'ai prêté la perceuse à Marc.", k1: 'Prêtée à', v1: 'Marc', k2: 'Rappel', v2: 'Dans 2 semaines', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'Comment ça marche', title: 'Trois secondes pour ranger, trois pour retrouver.',
+    steps: [
+      { h: 'Tu ranges, tu le dis', q: "« J'ai mis la perceuse sur l'établi du garage. »", p: 'Appuie sur le bouton, parle comme à un proche, relâche. Pas de catégorie, pas de dossier.' },
+      { h: 'Nouk vérifie avec toi', q: 'Objet : perceuse · Lieu : établi du garage', p: "Nouk comprend l'objet et le lieu. Tu enregistres d'un tap, ou tu corriges si besoin." },
+      { h: 'Tu demandes, Nouk répond', q: '« Où est la perceuse ? »', p: "La réponse s'affiche et Nouk la lit à voix haute, avec qui l'a rangée et quand." }
+    ],
+    phrases: ['« Où sont les clés de secours ? »', '« J\'ai prêté la raclette à Sophie »', '« Je l\'ai déplacé dans le placard de l\'entrée »', '« Dans quel carton est la bouilloire ? »']
+  },
+  house: {
+    eyebrow: 'Pour toute la maison', title: "Arrête d'être celle ou celui qui sait où tout est.",
+    lede: 'Invite ton conjoint, tes enfants ou tes colocs. Tout le monde range et cherche dans la même mémoire, au lieu de te demander.',
+    checks: ['Invitation par lien ou QR code, en un tap', 'Adultes avec tous les droits, enfants sans suppression', 'Chaque objet garde son historique : rangé, déplacé, pris, prêté', '« Demander au foyer » quand un objet reste introuvable'],
+    members: [
+      { name: 'Léa', sub: "Paie l'abonnement", role: 'Propriétaire' },
+      { name: 'Karim', sub: '34 objets rangés', role: 'Adulte' },
+      { name: 'Emma, 9 ans', sub: 'Cherche et range', role: 'Enfant' }
+    ]
+  },
+  features: {
+    eyebrow: 'Fonctionnalités', title: "Tout ce qu'il faut, rien de plus.",
+    items: [
+      { h: 'Siri et widgets', p: "« Dis Siri, où est le passeport dans Nouk ? » Et un souvenir du jour sur ton écran d'accueil." },
+      { h: 'Objets prêtés', p: 'Note à qui tu prêtes et reçois un rappel pour récupérer ta perceuse.' },
+      { h: 'Plusieurs lieux', p: "Deux paires de ciseaux ? Nouk te dit qu'il y en a dans la cuisine et au bureau." },
+      { h: 'Mode déménagement', p: 'Chaque carton devient un lieu. Tu dictes en remplissant, tu retrouves en déballant.' },
+      { h: 'Même hors ligne', p: 'Tu ranges sans réseau à la cave ; tout se synchronise ensuite.' },
+      { h: 'Clair et sombre', p: 'Une interface épurée, lisible en grand texte, qui suit les réglages de ton iPhone.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Confidentialité', title: 'Ta voix ne quitte jamais ton iPhone.',
+    p: "La transcription se fait sur ton téléphone. Seule la phrase écrite est analysée pour trouver l'objet et le lieu.",
+    items: ["Données hébergées dans l'Union européenne", 'Aucune publicité, aucune revente de données', 'Export et suppression du compte en un tap']
+  },
+  pricing: {
+    eyebrow: 'Prix', title: 'Un prix par foyer, jamais par objet.', period: 'Période de facturation',
+    monthly: 'Mensuel', yearly: 'Annuel · −37 %', unitM: '/ mois', unitY: '/ an',
+    plans: [
+      { name: 'Solo', m: '3,99 €', y: '29,99 €', perM: '', perY: 'soit 2,50 € par mois', checks: ['Ranger et retrouver à la voix, sans limite', 'Siri, widgets et réponse vocale', 'Objets prêtés et rappels'], cta: 'Essayer 14 jours' },
+      { name: 'Foyer', badge: 'Le plus choisi', best: true, m: '7,99 €', y: '59,99 €', perM: "jusqu'à 6 personnes", perY: "soit 5 € par mois, jusqu'à 6 personnes", checks: ['Tout ce que contient Solo', "Jusqu'à 6 personnes, une seule paie", 'Activité et historique du foyer'], cta: 'Essayer 14 jours' }
+    ],
+    pass: { name: 'Pass Déménagement', price: '9,99 €', unit: 'une fois', per: '60 jours, toute la famille, sans abonnement', checks: ["Jusqu'à 6 personnes", 'Ranger et retrouver sans limite', 'À la fin, ta mémoire reste consultable'], cta: 'Obtenir le pass' },
+    trial: "Essai complet de 14 jours, puis abonnement via l'App Store. Résiliable à tout moment dans les réglages de ton iPhone."
+  },
+  faq: {
+    eyebrow: 'Questions fréquentes', title: 'Tu te demandes peut-être…',
+    items: [
+      { q: 'Est-ce que Nouk enregistre ma voix ?', a: "Non. La voix est transcrite directement sur ton iPhone par le système d'Apple. Seul le texte de ta phrase est envoyé pour comprendre l'objet et le lieu." },
+      { q: 'Dans quelles langues ?', a: 'Français, anglais, allemand, espagnol, italien, néerlandais et portugais. Chaque membre du foyer peut parler sa langue : la mémoire reste commune.' },
+      { q: 'Et si un membre de la famille est sur Android ?', a: 'Nouk est d\'abord disponible sur iPhone. Une version web de consultation puis une app Android sont prévues ensuite.' },
+      { q: 'Combien de personnes dans un foyer ?', a: "Jusqu'à 6, comme le partage familial d'Apple. Une seule personne paie l'abonnement Foyer." },
+      { q: "Que se passe-t-il à la fin de l'essai ?", a: "Tu choisis Solo ou Foyer. Si tu ne t'abonnes pas, ta mémoire reste consultable, mais tu ne peux plus ajouter d'objets ni demander à la voix." },
+      { q: 'Je peux utiliser mon compte sur deux iPhone ?', a: "Un compte reste connecté sur un seul iPhone à la fois. Pour partager avec tes proches, l'abonnement Foyer leur donne chacun leur propre compte." },
+      { q: 'Comment supprimer mes données ?', a: 'Dans Réglages, puis Supprimer mon compte. Tout est effacé définitivement sous 30 jours au maximum.' }
+    ]
+  },
+  final: { title: 'La prochaine fois, demande à Nouk.', fine: "14 jours d'essai gratuits, sans engagement." },
+  footer: { copy: '© 2026 Nouk · fait en France', label: 'Pages légales' },
+  legal: {
+    back: "Retour à l'accueil", updated: 'Dernière mise à jour : 6 novembre 2026',
+    draft: 'Brouillon à faire relire par un professionnel du droit avant publication. Les champs surlignés sont à compléter.',
+    pages: {
+      notice: { short: 'Mentions légales', title: 'Mentions légales', html: `
+<h2>Éditeur</h2>
+<p>Le site et l'application Nouk sont édités par JFB Design, entreprise individuelle.</p>
+<p>Contact : contact@getnouk.app. Assistance : support@getnouk.app.</p>
+<h2>Hébergement</h2>
+<p>Site internet : OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>Données de l'application : Supabase Inc., sur des serveurs situés dans l'Union européenne.</p>
+<h2>Propriété intellectuelle</h2>
+<p>Le nom Nouk, le logo, l'interface et les contenus du site sont protégés. Toute reproduction sans autorisation écrite de JFB Design est interdite.</p>
+<h2>Médiation de la consommation</h2>
+<p>Conformément au Code de la consommation, tu peux recourir gratuitement au médiateur suivant : <span class="fill">[médiateur de la consommation à désigner]</span>.</p>
+<h2>Langues</h2>
+<p>Les pages légales existent en plusieurs langues. En cas de différence entre les versions, la version française fait foi.</p>` },
+      terms: { short: "Conditions d'utilisation", title: "Conditions générales d'utilisation", html: `
+<h2>1. Objet</h2>
+<p>Les présentes conditions encadrent l'utilisation de l'application Nouk, qui permet d'enregistrer, à la voix ou par écrit, l'endroit où sont rangés des objets, puis de les retrouver, seul ou au sein d'un foyer. En créant un compte, tu acceptes ces conditions.</p>
+<h2>2. Accès au service</h2>
+<p>Nouk est disponible sur iPhone. La création d'un compte se fait avec « Se connecter avec Apple » ou par e-mail avec un code de vérification. Tu dois fournir des informations exactes et garder l'accès à ton compte confidentiel.</p>
+<p>Un compte ne peut être connecté que sur un seul iPhone à la fois. Une nouvelle connexion sur un autre appareil déconnecte automatiquement le précédent.</p>
+<h2>3. Le foyer</h2>
+<p>Un foyer réunit jusqu'à 6 personnes partageant la même mémoire d'objets. Le propriétaire du foyer souscrit l'abonnement Foyer et invite les autres membres par lien ou QR code.</p>
+<ul>
+<li><strong>Propriétaire</strong> : tous les droits, y compris la gestion de l'abonnement.</li>
+<li><strong>Adulte</strong> : mêmes droits que le propriétaire, sauf la gestion de l'abonnement.</li>
+<li><strong>Enfant</strong> : peut chercher et ranger, sans supprimer ni gérer le foyer.</li>
+</ul>
+<p>Les contenus ajoutés au foyer sont visibles par tous ses membres. Un membre retiré du foyer perd l'accès immédiatement ; les objets qu'il a rangés restent dans la mémoire du foyer.</p>
+<p>L'utilisation par un mineur de moins de 15 ans se fait sous la responsabilité et avec l'accord d'un titulaire de l'autorité parentale, membre adulte du foyer.</p>
+<h2>4. Tes contenus</h2>
+<p>Les objets, lieux, photos et historiques que tu enregistres t'appartiennent. Tu autorises l'éditeur à les héberger et à les traiter uniquement pour faire fonctionner le service. Tu peux les exporter ou les supprimer à tout moment.</p>
+<h2>5. Intelligence artificielle</h2>
+<p>Nouk utilise un modèle d'intelligence artificielle pour identifier l'objet et le lieu dans tes phrases. Ce traitement peut se tromper : une carte de vérification te permet de corriger avant d'enregistrer. Nouk ne garantit pas l'exactitude des réponses, qui dépendent de ce que les membres ont enregistré.</p>
+<h2>6. Usage acceptable</h2>
+<p>Tu t'engages à ne pas utiliser Nouk pour stocker des contenus illicites, à ne pas tenter de contourner les limites du service (notamment la connexion sur un seul appareil) et à ne pas perturber son fonctionnement. Un plafond technique de 300 phrases par jour protège le service contre les usages automatisés.</p>
+<h2>7. Responsabilité</h2>
+<p>Nouk est un aide-mémoire. Il ne constitue pas un inventaire certifié et ne doit pas servir de preuve auprès d'un assureur. L'éditeur met tout en œuvre pour assurer la disponibilité du service, sans pouvoir garantir une absence totale d'interruption.</p>
+<h2>8. Suspension et fermeture du compte</h2>
+<p>Tu peux supprimer ton compte à tout moment depuis les réglages de l'application. L'éditeur peut suspendre un compte en cas de manquement grave aux présentes conditions, après t'en avoir informé sauf urgence.</p>
+<h2>9. Modifications</h2>
+<p>Ces conditions peuvent évoluer. Tu seras informé de tout changement important dans l'application avant son entrée en vigueur.</p>
+<h2>10. Droit applicable</h2>
+<p>Les présentes conditions sont soumises au droit français, sans te priver de la protection que t'accordent les règles impératives de ton pays de résidence. En cas de litige, une solution amiable sera recherchée en priorité, notamment via le médiateur indiqué dans les <a href="#notice">mentions légales</a>.</p>` },
+      sale: { short: 'Conditions de vente', title: 'Conditions générales de vente', html: `
+<h2>1. Offres et prix</h2>
+<div class="tbl"><table>
+<thead><tr><th>Offre</th><th>Prix TTC</th><th>Durée</th><th>Personnes</th></tr></thead>
+<tbody>
+<tr><td>Essai</td><td>Gratuit</td><td>14 jours</td><td>1</td></tr>
+<tr><td>Solo</td><td>3,99 € / mois ou 29,99 € / an</td><td>Renouvellement automatique</td><td>1</td></tr>
+<tr><td>Foyer</td><td>7,99 € / mois ou 59,99 € / an</td><td>Renouvellement automatique</td><td>Jusqu'à 6</td></tr>
+<tr><td>Pass Déménagement</td><td>9,99 € une fois</td><td>60 jours, sans renouvellement</td><td>Jusqu'à 6</td></tr>
+</tbody>
+</table></div>
+<p>Les prix s'entendent toutes taxes comprises. Ils peuvent varier selon le pays de ton compte App Store.</p>
+<h2>2. Paiement</h2>
+<p>Tous les achats se font par l'intermédiaire de l'App Store d'Apple, avec le moyen de paiement associé à ton identifiant Apple. L'éditeur n'a jamais accès à tes coordonnées bancaires.</p>
+<h2>3. Essai gratuit</h2>
+<p>L'essai donne accès à toutes les fonctionnalités pendant 14 jours. Sans abonnement à son terme, l'accès passe en lecture seule. Si tu choisis une offre pendant l'essai, le premier prélèvement intervient à la fin de l'essai, sauf résiliation au moins 24 heures avant.</p>
+<h2>4. Renouvellement et résiliation</h2>
+<p>Les abonnements Solo et Foyer se renouvellent automatiquement à chaque échéance, sauf résiliation au moins 24 heures avant la fin de la période en cours, depuis Réglages, puis ton nom, puis Abonnements. La résiliation prend effet à la fin de la période déjà payée.</p>
+<h2>5. Pass Déménagement</h2>
+<p>Le Pass Déménagement est un achat unique, valable 60 jours à compter de l'achat, sans renouvellement. Il peut être acheté une fois par période de 12 mois, par compte et par foyer. À son expiration, la mémoire reste consultable en lecture seule ; pour ajouter des objets ou interroger Nouk à la voix, il faut souscrire Solo ou Foyer.</p>
+<h2>6. Droit de rétractation</h2>
+<p>Le service est un contenu numérique fourni immédiatement après l'achat. En confirmant ton achat, tu demandes son exécution immédiate et reconnais renoncer à ton droit de rétractation de 14 jours, conformément à l'article L221-28 du Code de la consommation. Les demandes de remboursement sont traitées par Apple, sur reportaproblem.apple.com.</p>
+<h2>7. Évolution des prix</h2>
+<p>En cas de hausse de prix, tu seras prévenu par Apple et dans l'application avant qu'elle ne s'applique, avec la possibilité de résilier.</p>
+<h2>8. Réclamations</h2>
+<p>Pour toute question : support@getnouk.app. Médiation de la consommation : voir les <a href="#notice">mentions légales</a>.</p>` },
+      privacy: { short: 'Confidentialité', title: 'Politique de confidentialité', html: `
+<h2>1. Responsable du traitement</h2>
+<p>JFB Design, entreprise individuelle, éditeur de Nouk. Contact pour tes données : contact@getnouk.app.</p>
+<h2>2. Ta voix</h2>
+<p>La transcription de ta voix est réalisée sur ton iPhone par le système de reconnaissance vocale d'Apple. Aucun enregistrement audio n'est envoyé à nos serveurs ni conservé par Nouk.</p>
+<h2>3. Données collectées</h2>
+<div class="tbl"><table>
+<thead><tr><th>Données</th><th>Pourquoi</th><th>Base légale</th></tr></thead>
+<tbody>
+<tr><td>Compte : nom, adresse e-mail (ou adresse relais Apple)</td><td>Créer et sécuriser ton compte</td><td>Exécution du contrat</td></tr>
+<tr><td>Contenus : objets, lieux, photos, historique, prêts</td><td>Faire fonctionner le service et le partager avec ton foyer</td><td>Exécution du contrat</td></tr>
+<tr><td>Texte des phrases dictées ou écrites</td><td>Identifier l'objet et le lieu</td><td>Exécution du contrat</td></tr>
+<tr><td>Foyer : membres, rôles, invitations</td><td>Gérer le partage et les droits</td><td>Exécution du contrat</td></tr>
+<tr><td>Appareil actif, jeton de notification</td><td>Une seule session par compte, envoyer les rappels</td><td>Intérêt légitime ; consentement pour les notifications</td></tr>
+<tr><td>Statut d'abonnement (sans données bancaires)</td><td>Donner accès à ton offre</td><td>Exécution du contrat</td></tr>
+<tr><td>Statistiques anonymes, si tu les actives</td><td>Améliorer l'application</td><td>Consentement</td></tr>
+</tbody>
+</table></div>
+<p>Nouk n'affiche aucune publicité et ne vend aucune donnée.</p>
+<h2>4. Qui reçoit tes données</h2>
+<ul>
+<li><strong>Les membres de ton foyer</strong>, pour les contenus partagés.</li>
+<li><strong>Supabase</strong> : hébergement de la base de données, dans l'Union européenne.</li>
+<li><strong>Anthropic</strong> : analyse du texte de tes phrases par le modèle Claude, pour identifier l'objet et le lieu. Ce prestataire peut traiter les données hors de l'Union européenne, avec des garanties contractuelles (clauses contractuelles types).</li>
+<li><strong>Apple</strong> : connexion avec Apple, paiements et notifications.</li>
+<li><strong>Gestion des abonnements</strong> : RevenueCat.</li>
+<li><strong>Liens d'invitation</strong> : Branch.</li>
+</ul>
+<h2>5. Durée de conservation</h2>
+<p>Tes données sont conservées tant que ton compte est actif. Après suppression du compte, elles sont effacées sous 30 jours au maximum, sauvegardes comprises. Si tu es propriétaire d'un foyer et que tu le supprimes, les contenus du foyer sont effacés pour tous ses membres, sauf si tu transmets le foyer à un autre adulte.</p>
+<h2>6. Tes droits</h2>
+<p>Tu peux accéder à tes données, les rectifier, les exporter (dans Réglages, puis Confidentialité et données), les supprimer, t'opposer à certains traitements ou retirer ton consentement. Écris à contact@getnouk.app. Tu peux aussi adresser une réclamation à la CNIL (cnil.fr) ou à l'autorité de protection des données de ton pays.</p>
+<h2>7. Mineurs</h2>
+<p>Les comptes d'enfants sont créés à l'invitation d'un adulte du foyer. L'accord d'un titulaire de l'autorité parentale est requis en dessous de l'âge fixé par ton pays (15 ans en France).</p>
+<h2>8. Sécurité</h2>
+<p>Les échanges sont chiffrés, l'accès aux données est limité par foyer et par rôle, et un compte ne peut être ouvert que sur un seul iPhone à la fois.</p>
+<h2>9. Ce site</h2>
+<p>Ce site n'utilise ni cookie publicitaire ni outil de mesure d'audience.</p>` }
+    }
+  }
+};
+
+I18N.en = {
+  code: 'en', name: 'English', langLabel: 'Language',
+  nav: { how: 'How it works', household: 'Household', pricing: 'Pricing', faq: 'FAQ', download: 'Download' },
+  hero: {
+    eyebrow: 'The app that remembers where you put things',
+    title: 'Say where you put it. Find it with <em>one question.</em>',
+    lede: 'One button. Say “I put the Christmas decorations in the red tub in the garage”, and when the day comes, everyone at home just asks Nouk.',
+    cta: 'Download on the App Store', pricing: 'See pricing',
+    fine: '14-day free trial · iPhone · 7 languages',
+    hint: 'Tap the button to see Nouk at work', micLabel: 'Play the demo'
+  },
+  demos: [
+    { said: 'I put the camera charger in the desk drawer.', k1: 'Item', v1: 'Camera charger', k2: 'Place', v2: 'Desk drawer', t: '0:03' },
+    { said: 'Where are the Christmas decorations?', k1: 'Answer', v1: 'Red tub, garage', k2: 'Put away by', v2: 'Léa · 10 months ago', t: '0:02' },
+    { said: 'I lent the drill to Mark.', k1: 'Lent to', v1: 'Mark', k2: 'Reminder', v2: 'In 2 weeks', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'How it works', title: 'Three seconds to put it away, three to find it.',
+    steps: [
+      { h: 'Put it away, say it', q: '“I put the drill on the garage workbench.”', p: 'Hold the button, talk like you would to someone at home, let go. No categories, no folders.' },
+      { h: 'Nouk checks with you', q: 'Item: drill · Place: garage workbench', p: 'Nouk picks out the item and the place. Save with one tap, or fix it if needed.' },
+      { h: 'Ask, and Nouk answers', q: '“Where’s the drill?”', p: 'The answer appears and Nouk reads it aloud, with who put it there and when.' }
+    ],
+    phrases: ['“Where are the spare keys?”', '“I lent the tent to Sophie”', '“I moved it to the hall closet”', '“Which box is the kettle in?”']
+  },
+  house: {
+    eyebrow: 'For the whole home', title: 'Stop being the one who knows where everything is.',
+    lede: 'Invite your partner, your kids or your flatmates. Everyone puts things away and searches in the same memory, instead of asking you.',
+    checks: ['Invite by link or QR code, in one tap', 'Adults get full rights, kids can’t delete', 'Every item keeps its history: put away, moved, taken, lent', '“Ask the household” when something just won’t turn up'],
+    members: [
+      { name: 'Léa', sub: 'Pays the subscription', role: 'Owner' },
+      { name: 'Karim', sub: '34 items put away', role: 'Adult' },
+      { name: 'Emma, 9', sub: 'Searches and puts away', role: 'Child' }
+    ]
+  },
+  features: {
+    eyebrow: 'Features', title: 'Everything you need, nothing more.',
+    items: [
+      { h: 'Siri and widgets', p: '“Hey Siri, where’s the passport in Nouk?” Plus a daily memory on your Home Screen.' },
+      { h: 'Lent items', p: 'Note who you lend things to and get a reminder to get your drill back.' },
+      { h: 'Several places', p: 'Two pairs of scissors? Nouk tells you there’s one in the kitchen and one in the office.' },
+      { h: 'Moving mode', p: 'Every box becomes a place. Dictate as you pack, find as you unpack.' },
+      { h: 'Works offline', p: 'Put things away in the basement with no signal; everything syncs afterwards.' },
+      { h: 'Light and dark', p: 'A clean interface, readable at large text sizes, that follows your iPhone settings.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Privacy', title: 'Your voice never leaves your iPhone.',
+    p: 'Transcription happens on your phone. Only the written sentence is analysed to find the item and the place.',
+    items: ['Data hosted in the European Union', 'No ads, no selling of data', 'Export or delete your account in one tap']
+  },
+  pricing: {
+    eyebrow: 'Pricing', title: 'One price per household, never per item.', period: 'Billing period',
+    monthly: 'Monthly', yearly: 'Yearly · −37%', unitM: '/ month', unitY: '/ year',
+    plans: [
+      { name: 'Solo', m: '€3.99', y: '€29.99', perM: '', perY: 'that’s €2.50 a month', checks: ['Put away and find by voice, unlimited', 'Siri, widgets and spoken answers', 'Lent items and reminders'], cta: 'Try free for 14 days' },
+      { name: 'Household', badge: 'Most popular', best: true, m: '€7.99', y: '€59.99', perM: 'up to 6 people', perY: 'that’s €5 a month, up to 6 people', checks: ['Everything in Solo', 'Up to 6 people, only one pays', 'Household activity and history'], cta: 'Try free for 14 days' }
+    ],
+    pass: { name: 'Moving Pass', price: '€9.99', unit: 'one-time', per: '60 days, the whole family, no subscription', checks: ['Up to 6 people', 'Put away and find, unlimited', 'When it ends, your memory stays viewable'], cta: 'Get the pass' },
+    trial: 'Full 14-day trial, then a subscription through the App Store. Cancel anytime in your iPhone settings. Prices outside the euro area are set in local currency by the App Store.'
+  },
+  faq: {
+    eyebrow: 'FAQ', title: 'You might be wondering…',
+    items: [
+      { q: 'Does Nouk record my voice?', a: 'No. Your voice is transcribed directly on your iPhone by Apple’s system. Only the text of your sentence is sent to understand the item and the place.' },
+      { q: 'Which languages does it speak?', a: 'English, French, German, Spanish, Italian, Dutch and Portuguese. Each member of the household can speak their own language: the memory stays shared.' },
+      { q: 'What if someone in the family uses Android?', a: 'Nouk launches on iPhone first. A web viewer and then an Android app are planned next.' },
+      { q: 'How many people can join a household?', a: 'Up to 6, just like Apple Family Sharing. Only one person pays for the Household plan.' },
+      { q: 'What happens when the trial ends?', a: 'You pick Solo or Household. If you don’t subscribe, your memory stays viewable, but you can no longer add items or ask by voice.' },
+      { q: 'Can I use my account on two iPhones?', a: 'An account stays signed in on one iPhone at a time. To share with the people you live with, the Household plan gives each of them their own account.' },
+      { q: 'How do I delete my data?', a: 'Go to Settings, then Delete my account. Everything is permanently erased within 30 days at most.' }
+    ]
+  },
+  final: { title: 'Next time, just ask Nouk.', fine: '14-day free trial, no commitment.' },
+  footer: { copy: '© 2026 Nouk · made in France', label: 'Legal pages' },
+  legal: {
+    back: 'Back to home', updated: 'Last updated: 6 November 2026',
+    draft: 'Draft to be reviewed by a legal professional before publication. Highlighted fields need to be completed. If this translation and the French version differ, the French version prevails.',
+    pages: {
+      notice: { short: 'Legal notice', title: 'Legal notice', html: `
+<h2>Publisher</h2>
+<p>The Nouk website and app are published by JFB Design, a French sole proprietorship (entreprise individuelle).</p>
+<p>Contact: contact@getnouk.app. Support: support@getnouk.app.</p>
+<h2>Hosting</h2>
+<p>Website: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>App data: Supabase Inc., on servers located in the European Union.</p>
+<h2>Intellectual property</h2>
+<p>The Nouk name, logo, interface and website content are protected. Any reproduction without JFB Design's written permission is prohibited.</p>
+<h2>Consumer mediation</h2>
+<p>Under the French Consumer Code, you can refer a dispute free of charge to the following mediator: <span class="fill">[consumer mediator to be appointed]</span>.</p>
+<h2>Languages</h2>
+<p>The legal pages are available in several languages. If the versions differ, the French version prevails.</p>` },
+      terms: { short: 'Terms of Use', title: 'Terms of Use', html: `
+<h2>1. Purpose</h2>
+<p>These terms govern the use of the Nouk app, which lets you record, by voice or in writing, where items are stored, then find them again, on your own or within a household. By creating an account, you accept these terms.</p>
+<h2>2. Access to the service</h2>
+<p>Nouk is available on iPhone. You create an account with “Sign in with Apple” or by email with a verification code. You must provide accurate information and keep access to your account confidential.</p>
+<p>An account can only be signed in on one iPhone at a time. Signing in on another device automatically signs out the previous one.</p>
+<h2>3. The household</h2>
+<p>A household brings together up to 6 people sharing the same memory of items. The household owner subscribes to the Household plan and invites other members by link or QR code.</p>
+<ul>
+<li><strong>Owner</strong>: all rights, including managing the subscription.</li>
+<li><strong>Adult</strong>: the same rights as the owner, except managing the subscription.</li>
+<li><strong>Child</strong>: can search and put items away, but cannot delete or manage the household.</li>
+</ul>
+<p>Content added to the household is visible to all its members. A member removed from the household loses access immediately; the items they put away remain in the household's memory.</p>
+<p>Use by a minor under 15 is under the responsibility and with the consent of a person with parental authority who is an adult member of the household.</p>
+<h2>4. Your content</h2>
+<p>The items, places, photos and histories you record belong to you. You authorise the publisher to host and process them solely to run the service. You can export or delete them at any time.</p>
+<h2>5. Artificial intelligence</h2>
+<p>Nouk uses an artificial intelligence model to identify the item and the place in your sentences. This processing can make mistakes: a confirmation card lets you correct it before saving. Nouk does not guarantee the accuracy of answers, which depend on what members have recorded.</p>
+<h2>6. Acceptable use</h2>
+<p>You agree not to use Nouk to store unlawful content, not to try to get around the limits of the service (in particular the single-device sign-in) and not to disrupt its operation. A technical cap of 300 sentences per day protects the service against automated use.</p>
+<h2>7. Liability</h2>
+<p>Nouk is a memory aid. It is not a certified inventory and should not be used as evidence with an insurer. The publisher does its best to keep the service available, but cannot guarantee it will never be interrupted.</p>
+<h2>8. Suspension and account closure</h2>
+<p>You can delete your account at any time from the app's settings. The publisher may suspend an account in the event of a serious breach of these terms, after informing you except in an emergency.</p>
+<h2>9. Changes</h2>
+<p>These terms may change. You will be informed in the app of any significant change before it takes effect.</p>
+<h2>10. Governing law</h2>
+<p>These terms are governed by French law, without depriving you of the protection granted by the mandatory rules of your country of residence. In the event of a dispute, an amicable solution will be sought first, in particular through the mediator listed in the <a href="#notice">legal notice</a>.</p>` },
+      sale: { short: 'Terms of Sale', title: 'Terms of Sale', html: `
+<h2>1. Plans and prices</h2>
+<div class="tbl"><table>
+<thead><tr><th>Plan</th><th>Price incl. VAT</th><th>Duration</th><th>People</th></tr></thead>
+<tbody>
+<tr><td>Trial</td><td>Free</td><td>14 days</td><td>1</td></tr>
+<tr><td>Solo</td><td>€3.99 / month or €29.99 / year</td><td>Auto-renewing</td><td>1</td></tr>
+<tr><td>Household</td><td>€7.99 / month or €59.99 / year</td><td>Auto-renewing</td><td>Up to 6</td></tr>
+<tr><td>Moving Pass</td><td>€9.99 one-time</td><td>60 days, not renewed</td><td>Up to 6</td></tr>
+</tbody>
+</table></div>
+<p>Prices include all taxes. They may vary depending on the country of your App Store account.</p>
+<h2>2. Payment</h2>
+<p>All purchases are made through Apple's App Store, using the payment method linked to your Apple Account. The publisher never has access to your bank details.</p>
+<h2>3. Free trial</h2>
+<p>The trial gives access to all features for 14 days. If you don't subscribe by the end, access becomes read-only. If you choose a plan during the trial, the first charge happens at the end of the trial, unless you cancel at least 24 hours before.</p>
+<h2>4. Renewal and cancellation</h2>
+<p>Solo and Household subscriptions renew automatically at each billing date, unless cancelled at least 24 hours before the end of the current period, from Settings, then your name, then Subscriptions. Cancellation takes effect at the end of the period already paid for.</p>
+<h2>5. Moving Pass</h2>
+<p>The Moving Pass is a one-time purchase, valid for 60 days from purchase, with no renewal. It can be bought once per 12-month period, per account and per household. When it expires, the memory stays viewable in read-only mode; to add items or ask Nouk by voice, you need to subscribe to Solo or Household.</p>
+<h2>6. Right of withdrawal</h2>
+<p>The service is digital content supplied immediately after purchase. By confirming your purchase, you request immediate performance and acknowledge that you waive your 14-day right of withdrawal, in accordance with Article L221-28 of the French Consumer Code. Refund requests are handled by Apple, at reportaproblem.apple.com.</p>
+<h2>7. Price changes</h2>
+<p>If a price increases, you will be notified by Apple and in the app before it applies, with the option to cancel.</p>
+<h2>8. Complaints</h2>
+<p>For any question: support@getnouk.app. Consumer mediation: see the <a href="#notice">legal notice</a>.</p>` },
+      privacy: { short: 'Privacy', title: 'Privacy Policy', html: `
+<h2>1. Data controller</h2>
+<p>JFB Design, sole proprietorship, publisher of Nouk. Contact about your data: contact@getnouk.app.</p>
+<h2>2. Your voice</h2>
+<p>Your voice is transcribed on your iPhone by Apple's speech recognition system. No audio recording is sent to our servers or kept by Nouk.</p>
+<h2>3. Data we collect</h2>
+<div class="tbl"><table>
+<thead><tr><th>Data</th><th>Why</th><th>Legal basis</th></tr></thead>
+<tbody>
+<tr><td>Account: name, email address (or Apple relay address)</td><td>Create and secure your account</td><td>Performance of the contract</td></tr>
+<tr><td>Content: items, places, photos, history, loans</td><td>Run the service and share it with your household</td><td>Performance of the contract</td></tr>
+<tr><td>Text of dictated or typed sentences</td><td>Identify the item and the place</td><td>Performance of the contract</td></tr>
+<tr><td>Household: members, roles, invitations</td><td>Manage sharing and permissions</td><td>Performance of the contract</td></tr>
+<tr><td>Active device, notification token</td><td>One session per account, send reminders</td><td>Legitimate interest; consent for notifications</td></tr>
+<tr><td>Subscription status (no bank details)</td><td>Give access to your plan</td><td>Performance of the contract</td></tr>
+<tr><td>Anonymous statistics, if you turn them on</td><td>Improve the app</td><td>Consent</td></tr>
+</tbody>
+</table></div>
+<p>Nouk shows no ads and sells no data.</p>
+<h2>4. Who receives your data</h2>
+<ul>
+<li><strong>Members of your household</strong>, for shared content.</li>
+<li><strong>Supabase</strong>: database hosting, in the European Union.</li>
+<li><strong>Anthropic</strong>: analysis of the text of your sentences by the Claude model, to identify the item and the place. This provider may process data outside the European Union, under contractual safeguards (standard contractual clauses).</li>
+<li><strong>Apple</strong>: Sign in with Apple, payments and notifications.</li>
+<li><strong>Subscription management</strong>: RevenueCat.</li>
+<li><strong>Invitation links</strong>: Branch.</li>
+</ul>
+<h2>5. Retention</h2>
+<p>Your data is kept as long as your account is active. After you delete your account, it is erased within 30 days at most, backups included. If you own a household and delete it, the household's content is erased for all its members, unless you hand the household over to another adult.</p>
+<h2>6. Your rights</h2>
+<p>You can access, correct, export (in Settings, then Privacy and data) or delete your data, object to certain processing or withdraw your consent. Write to contact@getnouk.app. You can also lodge a complaint with the CNIL (cnil.fr), the French data protection authority, or with the authority in your country.</p>
+<h2>7. Minors</h2>
+<p>Children's accounts are created by invitation from an adult in the household. Consent from a person with parental authority is required below the age set by your country (15 in France).</p>
+<h2>8. Security</h2>
+<p>Communications are encrypted, access to data is limited by household and by role, and an account can only be open on one iPhone at a time.</p>
+<h2>9. This website</h2>
+<p>This website uses no advertising cookies and no audience measurement tools.</p>` }
+    }
+  }
+};
+
+I18N.de = {
+  code: 'de', name: 'Deutsch', langLabel: 'Sprache',
+  nav: { how: 'So funktioniert’s', household: 'Haushalt', pricing: 'Preise', faq: 'Fragen', download: 'Laden' },
+  hero: {
+    eyebrow: 'Die App, die sich merkt, wo du Dinge hinlegst',
+    title: 'Sag, wo du es hinlegst. Find es mit <em>einer Frage.</em>',
+    lede: 'Ein einziger Knopf. Du sagst „Ich habe die Weihnachtsdeko in die rote Kiste in der Garage gelegt“, und wenn es so weit ist, fragt der ganze Haushalt einfach Nouk.',
+    cta: 'Im App Store laden', pricing: 'Preise ansehen',
+    fine: '14 Tage kostenlos testen · iPhone · 7 Sprachen',
+    hint: 'Tippe auf den Knopf, um Nouk in Aktion zu sehen', micLabel: 'Demo starten'
+  },
+  demos: [
+    { said: 'Ich habe das Kamera-Ladegerät in die Schreibtischschublade gelegt.', k1: 'Gegenstand', v1: 'Kamera-Ladegerät', k2: 'Ort', v2: 'Schreibtischschublade', t: '0:03' },
+    { said: 'Wo ist die Weihnachtsdeko?', k1: 'Antwort', v1: 'Rote Kiste, Garage', k2: 'Verstaut von', v2: 'Léa · vor 10 Monaten', t: '0:02' },
+    { said: 'Ich habe Markus die Bohrmaschine geliehen.', k1: 'Verliehen an', v1: 'Markus', k2: 'Erinnerung', v2: 'In 2 Wochen', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'So funktioniert’s', title: 'Drei Sekunden zum Verstauen, drei zum Wiederfinden.',
+    steps: [
+      { h: 'Verstauen und sagen', q: '„Ich habe die Bohrmaschine auf die Werkbank in der Garage gelegt.“', p: 'Knopf gedrückt halten, sprechen wie mit jemandem zu Hause, loslassen. Keine Kategorien, keine Ordner.' },
+      { h: 'Nouk fragt kurz nach', q: 'Gegenstand: Bohrmaschine · Ort: Werkbank, Garage', p: 'Nouk erkennt Gegenstand und Ort. Mit einem Tipp speichern oder bei Bedarf korrigieren.' },
+      { h: 'Fragen, Nouk antwortet', q: '„Wo ist die Bohrmaschine?“', p: 'Die Antwort erscheint und Nouk liest sie vor, samt wer sie wann verstaut hat.' }
+    ],
+    phrases: ['„Wo sind die Ersatzschlüssel?“', '„Ich habe Sophie das Zelt geliehen“', '„Ich habe es in den Flurschrank geräumt“', '„In welchem Karton ist der Wasserkocher?“']
+  },
+  house: {
+    eyebrow: 'Für das ganze Zuhause', title: 'Hör auf, die Person zu sein, die weiß, wo alles ist.',
+    lede: 'Lade deinen Partner, deine Kinder oder deine Mitbewohner ein. Alle verstauen und suchen im selben Gedächtnis, statt dich zu fragen.',
+    checks: ['Einladung per Link oder QR-Code, mit einem Tipp', 'Erwachsene mit allen Rechten, Kinder ohne Löschen', 'Jeder Gegenstand behält seinen Verlauf: verstaut, umgeräumt, genommen, verliehen', '„Den Haushalt fragen“, wenn etwas einfach nicht auftaucht'],
+    members: [
+      { name: 'Léa', sub: 'Zahlt das Abo', role: 'Inhaberin' },
+      { name: 'Karim', sub: '34 Gegenstände verstaut', role: 'Erwachsen' },
+      { name: 'Emma, 9', sub: 'Sucht und verstaut', role: 'Kind' }
+    ]
+  },
+  features: {
+    eyebrow: 'Funktionen', title: 'Alles, was du brauchst, nicht mehr.',
+    items: [
+      { h: 'Siri und Widgets', p: '„Hey Siri, wo ist der Reisepass in Nouk?“ Dazu eine tägliche Erinnerung auf deinem Home-Bildschirm.' },
+      { h: 'Verliehenes', p: 'Notiere, wem du etwas leihst, und lass dich erinnern, deine Bohrmaschine zurückzuholen.' },
+      { h: 'Mehrere Orte', p: 'Zwei Scheren? Nouk sagt dir, dass eine in der Küche und eine im Büro liegt.' },
+      { h: 'Umzugsmodus', p: 'Jeder Karton wird zum Ort. Beim Packen diktieren, beim Auspacken wiederfinden.' },
+      { h: 'Auch offline', p: 'Verstaue Dinge im Keller ohne Empfang; alles wird später synchronisiert.' },
+      { h: 'Hell und dunkel', p: 'Eine klare Oberfläche, gut lesbar in großer Schrift, die deinen iPhone-Einstellungen folgt.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Datenschutz', title: 'Deine Stimme verlässt nie dein iPhone.',
+    p: 'Die Transkription passiert auf deinem Telefon. Nur der geschriebene Satz wird analysiert, um Gegenstand und Ort zu finden.',
+    items: ['Daten werden in der Europäischen Union gespeichert', 'Keine Werbung, kein Verkauf von Daten', 'Konto mit einem Tipp exportieren oder löschen']
+  },
+  pricing: {
+    eyebrow: 'Preise', title: 'Ein Preis pro Haushalt, nie pro Gegenstand.', period: 'Abrechnungszeitraum',
+    monthly: 'Monatlich', yearly: 'Jährlich · −37 %', unitM: '/ Monat', unitY: '/ Jahr',
+    plans: [
+      { name: 'Solo', m: '3,99 €', y: '29,99 €', perM: '', perY: 'also 2,50 € im Monat', checks: ['Verstauen und finden per Stimme, unbegrenzt', 'Siri, Widgets und gesprochene Antworten', 'Verliehenes und Erinnerungen'], cta: '14 Tage testen' },
+      { name: 'Haushalt', badge: 'Am beliebtesten', best: true, m: '7,99 €', y: '59,99 €', perM: 'bis zu 6 Personen', perY: 'also 5 € im Monat, bis zu 6 Personen', checks: ['Alles aus Solo', 'Bis zu 6 Personen, nur eine zahlt', 'Aktivität und Verlauf des Haushalts'], cta: '14 Tage testen' }
+    ],
+    pass: { name: 'Umzugspass', price: '9,99 €', unit: 'einmalig', per: '60 Tage, die ganze Familie, ohne Abo', checks: ['Bis zu 6 Personen', 'Verstauen und finden, unbegrenzt', 'Danach bleibt dein Gedächtnis einsehbar'], cta: 'Pass holen' },
+    trial: 'Volle 14 Tage testen, danach Abo über den App Store. Jederzeit in den iPhone-Einstellungen kündbar.'
+  },
+  faq: {
+    eyebrow: 'Häufige Fragen', title: 'Vielleicht fragst du dich…',
+    items: [
+      { q: 'Nimmt Nouk meine Stimme auf?', a: 'Nein. Deine Stimme wird direkt auf deinem iPhone vom System von Apple transkribiert. Nur der Text deines Satzes wird gesendet, um Gegenstand und Ort zu verstehen.' },
+      { q: 'Welche Sprachen gibt es?', a: 'Deutsch, Englisch, Französisch, Spanisch, Italienisch, Niederländisch und Portugiesisch. Jedes Haushaltsmitglied kann seine eigene Sprache sprechen: Das Gedächtnis bleibt gemeinsam.' },
+      { q: 'Und wenn jemand in der Familie Android nutzt?', a: 'Nouk startet zuerst auf dem iPhone. Eine Web-Ansicht und danach eine Android-App sind geplant.' },
+      { q: 'Wie viele Personen passen in einen Haushalt?', a: 'Bis zu 6, wie bei der Familienfreigabe von Apple. Nur eine Person zahlt das Haushalt-Abo.' },
+      { q: 'Was passiert nach dem Test?', a: 'Du wählst Solo oder Haushalt. Ohne Abo bleibt dein Gedächtnis einsehbar, aber du kannst keine Gegenstände mehr hinzufügen und nicht mehr per Stimme fragen.' },
+      { q: 'Kann ich mein Konto auf zwei iPhones nutzen?', a: 'Ein Konto ist immer nur auf einem iPhone angemeldet. Zum Teilen mit den Menschen, mit denen du lebst, bekommt mit dem Haushalt-Abo jede Person ihr eigenes Konto.' },
+      { q: 'Wie lösche ich meine Daten?', a: 'In Einstellungen, dann Konto löschen. Alles wird innerhalb von höchstens 30 Tagen endgültig gelöscht.' }
+    ]
+  },
+  final: { title: 'Nächstes Mal: einfach Nouk fragen.', fine: '14 Tage kostenlos testen, ohne Verpflichtung.' },
+  footer: { copy: '© 2026 Nouk · gemacht in Frankreich', label: 'Rechtliches' },
+  legal: {
+    back: 'Zurück zur Startseite', updated: 'Zuletzt aktualisiert: 6. November 2026',
+    draft: 'Entwurf, der vor der Veröffentlichung von einer Rechtsfachperson geprüft werden muss. Markierte Felder sind noch auszufüllen. Bei Abweichungen zwischen dieser Übersetzung und der französischen Fassung ist die französische Fassung maßgeblich.',
+    pages: {
+      notice: { short: 'Impressum', title: 'Impressum', html: `
+<h2>Herausgeber</h2>
+<p>Die Website und die App Nouk werden herausgegeben von JFB Design, Einzelunternehmen nach französischem Recht (entreprise individuelle).</p>
+<p>Kontakt: contact@getnouk.app. Support: support@getnouk.app.</p>
+<h2>Hosting</h2>
+<p>Website: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>App-Daten: Supabase Inc., auf Servern in der Europäischen Union.</p>
+<h2>Geistiges Eigentum</h2>
+<p>Der Name Nouk, das Logo, die Oberfläche und die Inhalte der Website sind geschützt. Jede Vervielfältigung ohne schriftliche Genehmigung von JFB Design ist untersagt.</p>
+<h2>Verbraucherschlichtung</h2>
+<p>Gemäß dem französischen Verbrauchergesetzbuch kannst du dich kostenlos an folgende Schlichtungsstelle wenden: <span class="fill">[Verbraucherschlichtungsstelle noch zu benennen]</span>.</p>
+<h2>Sprachen</h2>
+<p>Die rechtlichen Seiten gibt es in mehreren Sprachen. Bei Abweichungen ist die französische Fassung maßgeblich.</p>` },
+      terms: { short: 'Nutzungsbedingungen', title: 'Allgemeine Nutzungsbedingungen', html: `
+<h2>1. Gegenstand</h2>
+<p>Diese Bedingungen regeln die Nutzung der App Nouk, mit der du per Stimme oder Text festhalten kannst, wo Gegenstände verstaut sind, und sie allein oder in einem Haushalt wiederfinden kannst. Mit der Erstellung eines Kontos akzeptierst du diese Bedingungen.</p>
+<h2>2. Zugang zum Dienst</h2>
+<p>Nouk ist für das iPhone verfügbar. Ein Konto wird mit „Mit Apple anmelden“ oder per E-Mail mit einem Bestätigungscode erstellt. Du musst korrekte Angaben machen und den Zugang zu deinem Konto vertraulich halten.</p>
+<p>Ein Konto kann immer nur auf einem iPhone angemeldet sein. Eine neue Anmeldung auf einem anderen Gerät meldet das vorherige automatisch ab.</p>
+<h2>3. Der Haushalt</h2>
+<p>Ein Haushalt vereint bis zu 6 Personen, die dasselbe Gedächtnis für Gegenstände teilen. Die Inhaberin oder der Inhaber des Haushalts schließt das Haushalt-Abo ab und lädt die anderen Mitglieder per Link oder QR-Code ein.</p>
+<ul>
+<li><strong>Inhaber</strong>: alle Rechte, einschließlich der Verwaltung des Abos.</li>
+<li><strong>Erwachsen</strong>: dieselben Rechte wie der Inhaber, außer der Verwaltung des Abos.</li>
+<li><strong>Kind</strong>: kann suchen und verstauen, aber weder löschen noch den Haushalt verwalten.</li>
+</ul>
+<p>Inhalte im Haushalt sind für alle Mitglieder sichtbar. Ein aus dem Haushalt entferntes Mitglied verliert sofort den Zugang; die von ihm verstauten Gegenstände bleiben im Gedächtnis des Haushalts.</p>
+<p>Die Nutzung durch Minderjährige unter 15 Jahren erfolgt unter der Verantwortung und mit Zustimmung eines Sorgeberechtigten, der erwachsenes Mitglied des Haushalts ist.</p>
+<h2>4. Deine Inhalte</h2>
+<p>Die Gegenstände, Orte, Fotos und Verläufe, die du speicherst, gehören dir. Du erlaubst dem Herausgeber, sie ausschließlich zum Betrieb des Dienstes zu speichern und zu verarbeiten. Du kannst sie jederzeit exportieren oder löschen.</p>
+<h2>5. Künstliche Intelligenz</h2>
+<p>Nouk verwendet ein KI-Modell, um Gegenstand und Ort in deinen Sätzen zu erkennen. Diese Verarbeitung kann sich irren: Eine Bestätigungskarte lässt dich vor dem Speichern korrigieren. Nouk garantiert nicht die Richtigkeit der Antworten, die davon abhängen, was die Mitglieder gespeichert haben.</p>
+<h2>6. Zulässige Nutzung</h2>
+<p>Du verpflichtest dich, mit Nouk keine rechtswidrigen Inhalte zu speichern, die Grenzen des Dienstes (insbesondere die Anmeldung auf nur einem Gerät) nicht zu umgehen und seinen Betrieb nicht zu stören. Eine technische Obergrenze von 300 Sätzen pro Tag schützt den Dienst vor automatisierter Nutzung.</p>
+<h2>7. Haftung</h2>
+<p>Nouk ist eine Gedächtnisstütze. Es ist kein zertifiziertes Inventar und darf nicht als Nachweis gegenüber einer Versicherung dienen. Der Herausgeber tut sein Bestes, um die Verfügbarkeit des Dienstes zu sichern, kann aber keine völlige Unterbrechungsfreiheit garantieren.</p>
+<h2>8. Sperrung und Schließung des Kontos</h2>
+<p>Du kannst dein Konto jederzeit in den Einstellungen der App löschen. Der Herausgeber kann ein Konto bei einem schweren Verstoß gegen diese Bedingungen sperren, nachdem er dich informiert hat, außer in dringenden Fällen.</p>
+<h2>9. Änderungen</h2>
+<p>Diese Bedingungen können sich ändern. Über wichtige Änderungen wirst du vor ihrem Inkrafttreten in der App informiert.</p>
+<h2>10. Anwendbares Recht</h2>
+<p>Diese Bedingungen unterliegen französischem Recht, ohne dir den Schutz zu entziehen, den dir die zwingenden Vorschriften deines Wohnsitzlandes gewähren. Bei Streitigkeiten wird zunächst eine gütliche Lösung gesucht, insbesondere über die im <a href="#notice">Impressum</a> genannte Schlichtungsstelle.</p>` },
+      sale: { short: 'Verkaufsbedingungen', title: 'Allgemeine Verkaufsbedingungen', html: `
+<h2>1. Angebote und Preise</h2>
+<div class="tbl"><table>
+<thead><tr><th>Angebot</th><th>Preis inkl. MwSt.</th><th>Laufzeit</th><th>Personen</th></tr></thead>
+<tbody>
+<tr><td>Test</td><td>Kostenlos</td><td>14 Tage</td><td>1</td></tr>
+<tr><td>Solo</td><td>3,99 € / Monat oder 29,99 € / Jahr</td><td>Automatische Verlängerung</td><td>1</td></tr>
+<tr><td>Haushalt</td><td>7,99 € / Monat oder 59,99 € / Jahr</td><td>Automatische Verlängerung</td><td>Bis zu 6</td></tr>
+<tr><td>Umzugspass</td><td>9,99 € einmalig</td><td>60 Tage, ohne Verlängerung</td><td>Bis zu 6</td></tr>
+</tbody>
+</table></div>
+<p>Alle Preise verstehen sich inklusive Steuern. Sie können je nach Land deines App-Store-Kontos abweichen.</p>
+<h2>2. Zahlung</h2>
+<p>Alle Käufe erfolgen über den App Store von Apple mit der Zahlungsmethode deines Apple Accounts. Der Herausgeber hat nie Zugriff auf deine Bankdaten.</p>
+<h2>3. Kostenloser Test</h2>
+<p>Der Test bietet 14 Tage lang Zugang zu allen Funktionen. Ohne Abo danach ist der Zugang nur noch lesend. Wählst du während des Tests ein Angebot, erfolgt die erste Abbuchung am Ende des Tests, sofern du nicht mindestens 24 Stunden vorher kündigst.</p>
+<h2>4. Verlängerung und Kündigung</h2>
+<p>Die Abos Solo und Haushalt verlängern sich automatisch zu jedem Fälligkeitstermin, sofern sie nicht mindestens 24 Stunden vor Ende des laufenden Zeitraums gekündigt werden, über Einstellungen, dann deinen Namen, dann Abonnements. Die Kündigung wird zum Ende des bereits bezahlten Zeitraums wirksam.</p>
+<h2>5. Umzugspass</h2>
+<p>Der Umzugspass ist ein einmaliger Kauf, gültig 60 Tage ab Kauf, ohne Verlängerung. Er kann einmal pro 12 Monate je Konto und je Haushalt gekauft werden. Nach Ablauf bleibt das Gedächtnis lesend einsehbar; um Gegenstände hinzuzufügen oder Nouk per Stimme zu fragen, brauchst du Solo oder Haushalt.</p>
+<h2>6. Widerrufsrecht</h2>
+<p>Der Dienst ist ein digitaler Inhalt, der sofort nach dem Kauf bereitgestellt wird. Mit der Bestätigung deines Kaufs verlangst du die sofortige Ausführung und erkennst an, dass du dein 14-tägiges Widerrufsrecht verlierst, gemäß Artikel L221-28 des französischen Verbrauchergesetzbuchs (Art. 16 Buchst. m der Richtlinie 2011/83/EU). Erstattungsanfragen bearbeitet Apple unter reportaproblem.apple.com.</p>
+<h2>7. Preisänderungen</h2>
+<p>Bei einer Preiserhöhung wirst du von Apple und in der App informiert, bevor sie gilt, und kannst kündigen.</p>
+<h2>8. Reklamationen</h2>
+<p>Bei Fragen: support@getnouk.app. Verbraucherschlichtung: siehe <a href="#notice">Impressum</a>.</p>` },
+      privacy: { short: 'Datenschutz', title: 'Datenschutzerklärung', html: `
+<h2>1. Verantwortlicher</h2>
+<p>JFB Design, Einzelunternehmen, Herausgeber von Nouk. Kontakt zu deinen Daten: contact@getnouk.app.</p>
+<h2>2. Deine Stimme</h2>
+<p>Deine Stimme wird auf deinem iPhone von der Spracherkennung von Apple transkribiert. Keine Audioaufnahme wird an unsere Server gesendet oder von Nouk gespeichert.</p>
+<h2>3. Erhobene Daten</h2>
+<div class="tbl"><table>
+<thead><tr><th>Daten</th><th>Wozu</th><th>Rechtsgrundlage</th></tr></thead>
+<tbody>
+<tr><td>Konto: Name, E-Mail-Adresse (oder Apple-Weiterleitungsadresse)</td><td>Konto erstellen und absichern</td><td>Vertragserfüllung</td></tr>
+<tr><td>Inhalte: Gegenstände, Orte, Fotos, Verlauf, Verliehenes</td><td>Dienst betreiben und mit deinem Haushalt teilen</td><td>Vertragserfüllung</td></tr>
+<tr><td>Text diktierter oder getippter Sätze</td><td>Gegenstand und Ort erkennen</td><td>Vertragserfüllung</td></tr>
+<tr><td>Haushalt: Mitglieder, Rollen, Einladungen</td><td>Teilen und Rechte verwalten</td><td>Vertragserfüllung</td></tr>
+<tr><td>Aktives Gerät, Benachrichtigungs-Token</td><td>Eine Sitzung pro Konto, Erinnerungen senden</td><td>Berechtigtes Interesse; Einwilligung für Benachrichtigungen</td></tr>
+<tr><td>Abo-Status (ohne Bankdaten)</td><td>Zugang zu deinem Angebot</td><td>Vertragserfüllung</td></tr>
+<tr><td>Anonyme Statistiken, wenn du sie aktivierst</td><td>App verbessern</td><td>Einwilligung</td></tr>
+</tbody>
+</table></div>
+<p>Nouk zeigt keine Werbung und verkauft keine Daten.</p>
+<h2>4. Empfänger deiner Daten</h2>
+<ul>
+<li><strong>Die Mitglieder deines Haushalts</strong>, für geteilte Inhalte.</li>
+<li><strong>Supabase</strong>: Hosting der Datenbank in der Europäischen Union.</li>
+<li><strong>Anthropic</strong>: Analyse des Texts deiner Sätze durch das Modell Claude, um Gegenstand und Ort zu erkennen. Dieser Dienstleister kann Daten außerhalb der Europäischen Union verarbeiten, mit vertraglichen Garantien (Standardvertragsklauseln).</li>
+<li><strong>Apple</strong>: Mit Apple anmelden, Zahlungen und Benachrichtigungen.</li>
+<li><strong>Abo-Verwaltung</strong>: RevenueCat.</li>
+<li><strong>Einladungslinks</strong>: Branch.</li>
+</ul>
+<h2>5. Speicherdauer</h2>
+<p>Deine Daten werden gespeichert, solange dein Konto aktiv ist. Nach dem Löschen des Kontos werden sie innerhalb von höchstens 30 Tagen gelöscht, Sicherungen eingeschlossen. Wenn du einen Haushalt besitzt und ihn löschst, werden seine Inhalte für alle Mitglieder gelöscht, außer du übergibst den Haushalt an einen anderen Erwachsenen.</p>
+<h2>6. Deine Rechte</h2>
+<p>Du kannst deine Daten einsehen, berichtigen, exportieren (in Einstellungen, dann Datenschutz und Daten), löschen, bestimmten Verarbeitungen widersprechen oder deine Einwilligung widerrufen. Schreib an contact@getnouk.app. Du kannst dich auch bei der CNIL (cnil.fr), der französischen Datenschutzbehörde, oder bei der Aufsichtsbehörde deines Landes beschweren.</p>
+<h2>7. Minderjährige</h2>
+<p>Konten für Kinder werden auf Einladung eines Erwachsenen im Haushalt erstellt. Unterhalb des in deinem Land festgelegten Alters (in Frankreich 15, in Deutschland 16 Jahre) ist die Zustimmung eines Sorgeberechtigten erforderlich.</p>
+<h2>8. Sicherheit</h2>
+<p>Die Übertragung ist verschlüsselt, der Zugriff auf Daten ist nach Haushalt und Rolle beschränkt, und ein Konto kann nur auf einem iPhone gleichzeitig geöffnet sein.</p>
+<h2>9. Diese Website</h2>
+<p>Diese Website verwendet keine Werbe-Cookies und keine Reichweitenmessung.</p>` }
+    }
+  }
+};
+
+I18N.es = {
+  code: 'es', name: 'Español', langLabel: 'Idioma',
+  nav: { how: 'Cómo funciona', household: 'Hogar', pricing: 'Precios', faq: 'Preguntas', download: 'Descargar' },
+  hero: {
+    eyebrow: 'La app que recuerda dónde guardas las cosas',
+    title: 'Di dónde lo guardas. Encuéntralo con <em>una pregunta.</em>',
+    lede: 'Un solo botón. Dices «He puesto los adornos de Navidad en la caja roja del garaje» y, cuando llegue el día, en casa solo tendrán que preguntarle a Nouk.',
+    cta: 'Descargar en el App Store', pricing: 'Ver precios',
+    fine: '14 días de prueba gratis · iPhone · 7 idiomas',
+    hint: 'Toca el botón para ver a Nouk en acción', micLabel: 'Ver la demostración'
+  },
+  demos: [
+    { said: 'He puesto el cargador de la cámara en el cajón del escritorio.', k1: 'Objeto', v1: 'Cargador de la cámara', k2: 'Lugar', v2: 'Cajón del escritorio', t: '0:03' },
+    { said: '¿Dónde están los adornos de Navidad?', k1: 'Respuesta', v1: 'Caja roja, garaje', k2: 'Guardado por', v2: 'Léa · hace 10 meses', t: '0:02' },
+    { said: 'Le he prestado el taladro a Marcos.', k1: 'Prestado a', v1: 'Marcos', k2: 'Recordatorio', v2: 'En 2 semanas', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'Cómo funciona', title: 'Tres segundos para guardar, tres para encontrar.',
+    steps: [
+      { h: 'Guardas y lo dices', q: '«He dejado el taladro en el banco de trabajo del garaje».', p: 'Mantén pulsado el botón, habla como con alguien de casa y suelta. Sin categorías ni carpetas.' },
+      { h: 'Nouk lo confirma contigo', q: 'Objeto: taladro · Lugar: banco del garaje', p: 'Nouk entiende el objeto y el lugar. Guárdalo con un toque o corrígelo si hace falta.' },
+      { h: 'Preguntas y Nouk responde', q: '«¿Dónde está el taladro?»', p: 'La respuesta aparece y Nouk la lee en voz alta, con quién lo guardó y cuándo.' }
+    ],
+    phrases: ['«¿Dónde están las llaves de repuesto?»', '«Le he prestado la tienda de campaña a Sofía»', '«Lo he movido al armario de la entrada»', '«¿En qué caja está el hervidor?»']
+  },
+  house: {
+    eyebrow: 'Para toda la casa', title: 'Deja de ser quien sabe dónde está todo.',
+    lede: 'Invita a tu pareja, a tus hijos o a tus compañeros de piso. Todos guardan y buscan en la misma memoria, en lugar de preguntarte a ti.',
+    checks: ['Invitación por enlace o código QR, con un toque', 'Adultos con todos los permisos, niños sin borrar', 'Cada objeto guarda su historial: guardado, movido, cogido, prestado', '«Preguntar al hogar» cuando algo no aparece'],
+    members: [
+      { name: 'Léa', sub: 'Paga la suscripción', role: 'Propietaria' },
+      { name: 'Karim', sub: '34 objetos guardados', role: 'Adulto' },
+      { name: 'Emma, 9 años', sub: 'Busca y guarda', role: 'Niña' }
+    ]
+  },
+  features: {
+    eyebrow: 'Funciones', title: 'Todo lo necesario, nada más.',
+    items: [
+      { h: 'Siri y widgets', p: '«Oye Siri, ¿dónde está el pasaporte en Nouk?» Y un recuerdo del día en tu pantalla de inicio.' },
+      { h: 'Objetos prestados', p: 'Anota a quién prestas las cosas y recibe un recordatorio para recuperar tu taladro.' },
+      { h: 'Varios lugares', p: '¿Dos tijeras? Nouk te dice que hay unas en la cocina y otras en el despacho.' },
+      { h: 'Modo mudanza', p: 'Cada caja se convierte en un lugar. Dictas al llenarla y encuentras al desembalar.' },
+      { h: 'También sin conexión', p: 'Guarda cosas en el trastero sin cobertura; todo se sincroniza después.' },
+      { h: 'Claro y oscuro', p: 'Una interfaz limpia, legible con texto grande, que sigue los ajustes de tu iPhone.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Privacidad', title: 'Tu voz nunca sale de tu iPhone.',
+    p: 'La transcripción se hace en tu teléfono. Solo se analiza la frase escrita para encontrar el objeto y el lugar.',
+    items: ['Datos alojados en la Unión Europea', 'Sin publicidad y sin venta de datos', 'Exporta o elimina tu cuenta con un toque']
+  },
+  pricing: {
+    eyebrow: 'Precios', title: 'Un precio por hogar, nunca por objeto.', period: 'Periodo de facturación',
+    monthly: 'Mensual', yearly: 'Anual · −37 %', unitM: '/ mes', unitY: '/ año',
+    plans: [
+      { name: 'Solo', m: '3,99 €', y: '29,99 €', perM: '', perY: 'es decir, 2,50 € al mes', checks: ['Guardar y encontrar por voz, sin límite', 'Siri, widgets y respuestas habladas', 'Objetos prestados y recordatorios'], cta: 'Probar 14 días' },
+      { name: 'Hogar', badge: 'El más elegido', best: true, m: '7,99 €', y: '59,99 €', perM: 'hasta 6 personas', perY: 'es decir, 5 € al mes, hasta 6 personas', checks: ['Todo lo de Solo', 'Hasta 6 personas, solo una paga', 'Actividad e historial del hogar'], cta: 'Probar 14 días' }
+    ],
+    pass: { name: 'Pase Mudanza', price: '9,99 €', unit: 'pago único', per: '60 días, toda la familia, sin suscripción', checks: ['Hasta 6 personas', 'Guardar y encontrar sin límite', 'Al terminar, tu memoria sigue disponible para consulta'], cta: 'Obtener el pase' },
+    trial: 'Prueba completa de 14 días y luego suscripción a través del App Store. Cancela cuando quieras en los ajustes de tu iPhone.'
+  },
+  faq: {
+    eyebrow: 'Preguntas frecuentes', title: 'Quizá te preguntes…',
+    items: [
+      { q: '¿Nouk graba mi voz?', a: 'No. Tu voz se transcribe directamente en tu iPhone con el sistema de Apple. Solo se envía el texto de tu frase para entender el objeto y el lugar.' },
+      { q: '¿En qué idiomas?', a: 'Español, inglés, francés, alemán, italiano, neerlandés y portugués. Cada miembro del hogar puede hablar en su idioma: la memoria sigue siendo común.' },
+      { q: '¿Y si alguien de la familia usa Android?', a: 'Nouk llega primero al iPhone. Después están previstas una versión web de consulta y una app para Android.' },
+      { q: '¿Cuántas personas caben en un hogar?', a: 'Hasta 6, como En familia de Apple. Solo una persona paga la suscripción Hogar.' },
+      { q: '¿Qué pasa al acabar la prueba?', a: 'Eliges Solo u Hogar. Si no te suscribes, tu memoria sigue disponible para consulta, pero ya no puedes añadir objetos ni preguntar por voz.' },
+      { q: '¿Puedo usar mi cuenta en dos iPhone?', a: 'Una cuenta solo puede estar abierta en un iPhone a la vez. Para compartir con quienes viven contigo, la suscripción Hogar da a cada uno su propia cuenta.' },
+      { q: '¿Cómo elimino mis datos?', a: 'En Ajustes, luego Eliminar mi cuenta. Todo se borra definitivamente en un plazo máximo de 30 días.' }
+    ]
+  },
+  final: { title: 'La próxima vez, pregúntale a Nouk.', fine: '14 días de prueba gratis, sin compromiso.' },
+  footer: { copy: '© 2026 Nouk · hecho en Francia', label: 'Páginas legales' },
+  legal: {
+    back: 'Volver al inicio', updated: 'Última actualización: 6 de noviembre de 2026',
+    draft: 'Borrador que debe revisar un profesional del derecho antes de su publicación. Los campos resaltados están pendientes de completar. En caso de diferencia entre esta traducción y la versión francesa, prevalece la versión francesa.',
+    pages: {
+      notice: { short: 'Aviso legal', title: 'Aviso legal', html: `
+<h2>Editor</h2>
+<p>El sitio web y la app Nouk son editados por JFB Design, empresa individual de derecho francés (entreprise individuelle).</p>
+<p>Contacto: contact@getnouk.app. Asistencia: support@getnouk.app.</p>
+<h2>Alojamiento</h2>
+<p>Sitio web: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>Datos de la app: Supabase Inc., en servidores ubicados en la Unión Europea.</p>
+<h2>Propiedad intelectual</h2>
+<p>El nombre Nouk, el logotipo, la interfaz y los contenidos del sitio están protegidos. Queda prohibida cualquier reproducción sin autorización escrita de JFB Design.</p>
+<h2>Mediación de consumo</h2>
+<p>De acuerdo con el Código de Consumo francés, puedes recurrir gratuitamente al siguiente mediador: <span class="fill">[mediador de consumo por designar]</span>.</p>
+<h2>Idiomas</h2>
+<p>Las páginas legales están disponibles en varios idiomas. En caso de diferencia entre versiones, prevalece la versión francesa.</p>` },
+      terms: { short: 'Condiciones de uso', title: 'Condiciones generales de uso', html: `
+<h2>1. Objeto</h2>
+<p>Estas condiciones regulan el uso de la app Nouk, que permite registrar, por voz o por escrito, dónde están guardados los objetos y volver a encontrarlos, solo o dentro de un hogar. Al crear una cuenta, aceptas estas condiciones.</p>
+<h2>2. Acceso al servicio</h2>
+<p>Nouk está disponible en iPhone. La cuenta se crea con «Iniciar sesión con Apple» o por correo electrónico con un código de verificación. Debes facilitar información exacta y mantener confidencial el acceso a tu cuenta.</p>
+<p>Una cuenta solo puede tener la sesión iniciada en un iPhone a la vez. Iniciar sesión en otro dispositivo cierra automáticamente la sesión en el anterior.</p>
+<h2>3. El hogar</h2>
+<p>Un hogar reúne hasta 6 personas que comparten la misma memoria de objetos. El propietario del hogar contrata la suscripción Hogar e invita a los demás miembros por enlace o código QR.</p>
+<ul>
+<li><strong>Propietario</strong>: todos los permisos, incluida la gestión de la suscripción.</li>
+<li><strong>Adulto</strong>: los mismos permisos que el propietario, salvo la gestión de la suscripción.</li>
+<li><strong>Niño</strong>: puede buscar y guardar, pero no borrar ni gestionar el hogar.</li>
+</ul>
+<p>Los contenidos añadidos al hogar son visibles para todos sus miembros. Un miembro retirado del hogar pierde el acceso de inmediato; los objetos que guardó permanecen en la memoria del hogar.</p>
+<p>El uso por un menor de 15 años se realiza bajo la responsabilidad y con el consentimiento de un titular de la patria potestad que sea miembro adulto del hogar.</p>
+<h2>4. Tus contenidos</h2>
+<p>Los objetos, lugares, fotos e historiales que registras te pertenecen. Autorizas al editor a alojarlos y tratarlos únicamente para que el servicio funcione. Puedes exportarlos o eliminarlos en cualquier momento.</p>
+<h2>5. Inteligencia artificial</h2>
+<p>Nouk utiliza un modelo de inteligencia artificial para identificar el objeto y el lugar en tus frases. Este tratamiento puede equivocarse: una tarjeta de verificación te permite corregir antes de guardar. Nouk no garantiza la exactitud de las respuestas, que dependen de lo que hayan registrado los miembros.</p>
+<h2>6. Uso aceptable</h2>
+<p>Te comprometes a no usar Nouk para almacenar contenidos ilícitos, a no intentar eludir los límites del servicio (en particular, la sesión en un solo dispositivo) y a no perturbar su funcionamiento. Un límite técnico de 300 frases al día protege el servicio frente a usos automatizados.</p>
+<h2>7. Responsabilidad</h2>
+<p>Nouk es una ayuda para la memoria. No es un inventario certificado y no debe servir como prueba ante una aseguradora. El editor hace todo lo posible por garantizar la disponibilidad del servicio, sin poder garantizar que nunca se interrumpa.</p>
+<h2>8. Suspensión y cierre de la cuenta</h2>
+<p>Puedes eliminar tu cuenta en cualquier momento desde los ajustes de la app. El editor puede suspender una cuenta en caso de incumplimiento grave de estas condiciones, tras informarte salvo urgencia.</p>
+<h2>9. Modificaciones</h2>
+<p>Estas condiciones pueden cambiar. Se te informará en la app de cualquier cambio importante antes de que entre en vigor.</p>
+<h2>10. Ley aplicable</h2>
+<p>Estas condiciones se rigen por el derecho francés, sin privarte de la protección que te otorgan las normas imperativas de tu país de residencia. En caso de litigio, se buscará primero una solución amistosa, en particular a través del mediador indicado en el <a href="#notice">aviso legal</a>.</p>` },
+      sale: { short: 'Condiciones de venta', title: 'Condiciones generales de venta', html: `
+<h2>1. Ofertas y precios</h2>
+<div class="tbl"><table>
+<thead><tr><th>Oferta</th><th>Precio con IVA</th><th>Duración</th><th>Personas</th></tr></thead>
+<tbody>
+<tr><td>Prueba</td><td>Gratis</td><td>14 días</td><td>1</td></tr>
+<tr><td>Solo</td><td>3,99 € / mes o 29,99 € / año</td><td>Renovación automática</td><td>1</td></tr>
+<tr><td>Hogar</td><td>7,99 € / mes o 59,99 € / año</td><td>Renovación automática</td><td>Hasta 6</td></tr>
+<tr><td>Pase Mudanza</td><td>9,99 € pago único</td><td>60 días, sin renovación</td><td>Hasta 6</td></tr>
+</tbody>
+</table></div>
+<p>Los precios incluyen todos los impuestos. Pueden variar según el país de tu cuenta del App Store.</p>
+<h2>2. Pago</h2>
+<p>Todas las compras se realizan a través del App Store de Apple, con el método de pago asociado a tu cuenta de Apple. El editor nunca tiene acceso a tus datos bancarios.</p>
+<h2>3. Prueba gratuita</h2>
+<p>La prueba da acceso a todas las funciones durante 14 días. Si no te suscribes al terminar, el acceso pasa a ser solo de consulta. Si eliges una oferta durante la prueba, el primer cobro se realiza al final de la prueba, salvo que canceles al menos 24 horas antes.</p>
+<h2>4. Renovación y cancelación</h2>
+<p>Las suscripciones Solo y Hogar se renuevan automáticamente en cada vencimiento, salvo cancelación al menos 24 horas antes del final del periodo en curso, desde Ajustes, luego tu nombre, luego Suscripciones. La cancelación surte efecto al final del periodo ya pagado.</p>
+<h2>5. Pase Mudanza</h2>
+<p>El Pase Mudanza es una compra única, válida durante 60 días desde la compra, sin renovación. Puede comprarse una vez cada 12 meses, por cuenta y por hogar. Al caducar, la memoria sigue disponible solo para consulta; para añadir objetos o preguntar a Nouk por voz, hay que suscribirse a Solo u Hogar.</p>
+<h2>6. Derecho de desistimiento</h2>
+<p>El servicio es un contenido digital suministrado inmediatamente después de la compra. Al confirmar tu compra, solicitas su ejecución inmediata y reconoces que renuncias a tu derecho de desistimiento de 14 días, de conformidad con el artículo L221-28 del Código de Consumo francés (art. 16, letra m, de la Directiva 2011/83/UE). Las solicitudes de reembolso las gestiona Apple en reportaproblem.apple.com.</p>
+<h2>7. Cambios de precio</h2>
+<p>En caso de subida de precio, Apple y la app te avisarán antes de que se aplique, con la posibilidad de cancelar.</p>
+<h2>8. Reclamaciones</h2>
+<p>Para cualquier consulta: support@getnouk.app. Mediación de consumo: consulta el <a href="#notice">aviso legal</a>.</p>` },
+      privacy: { short: 'Privacidad', title: 'Política de privacidad', html: `
+<h2>1. Responsable del tratamiento</h2>
+<p>JFB Design, empresa individual, editor de Nouk. Contacto sobre tus datos: contact@getnouk.app.</p>
+<h2>2. Tu voz</h2>
+<p>La transcripción de tu voz se realiza en tu iPhone mediante el reconocimiento de voz de Apple. Ninguna grabación de audio se envía a nuestros servidores ni se conserva en Nouk.</p>
+<h2>3. Datos recogidos</h2>
+<div class="tbl"><table>
+<thead><tr><th>Datos</th><th>Para qué</th><th>Base jurídica</th></tr></thead>
+<tbody>
+<tr><td>Cuenta: nombre, correo electrónico (o dirección de reenvío de Apple)</td><td>Crear y proteger tu cuenta</td><td>Ejecución del contrato</td></tr>
+<tr><td>Contenidos: objetos, lugares, fotos, historial, préstamos</td><td>Hacer funcionar el servicio y compartirlo con tu hogar</td><td>Ejecución del contrato</td></tr>
+<tr><td>Texto de las frases dictadas o escritas</td><td>Identificar el objeto y el lugar</td><td>Ejecución del contrato</td></tr>
+<tr><td>Hogar: miembros, roles, invitaciones</td><td>Gestionar el uso compartido y los permisos</td><td>Ejecución del contrato</td></tr>
+<tr><td>Dispositivo activo, token de notificaciones</td><td>Una sola sesión por cuenta, enviar recordatorios</td><td>Interés legítimo; consentimiento para las notificaciones</td></tr>
+<tr><td>Estado de la suscripción (sin datos bancarios)</td><td>Dar acceso a tu oferta</td><td>Ejecución del contrato</td></tr>
+<tr><td>Estadísticas anónimas, si las activas</td><td>Mejorar la app</td><td>Consentimiento</td></tr>
+</tbody>
+</table></div>
+<p>Nouk no muestra publicidad ni vende datos.</p>
+<h2>4. Quién recibe tus datos</h2>
+<ul>
+<li><strong>Los miembros de tu hogar</strong>, para los contenidos compartidos.</li>
+<li><strong>Supabase</strong>: alojamiento de la base de datos, en la Unión Europea.</li>
+<li><strong>Anthropic</strong>: análisis del texto de tus frases mediante el modelo Claude, para identificar el objeto y el lugar. Este proveedor puede tratar datos fuera de la Unión Europea, con garantías contractuales (cláusulas contractuales tipo).</li>
+<li><strong>Apple</strong>: inicio de sesión con Apple, pagos y notificaciones.</li>
+<li><strong>Gestión de suscripciones</strong>: RevenueCat.</li>
+<li><strong>Enlaces de invitación</strong>: Branch.</li>
+</ul>
+<h2>5. Conservación</h2>
+<p>Tus datos se conservan mientras tu cuenta esté activa. Tras eliminar la cuenta, se borran en un plazo máximo de 30 días, copias de seguridad incluidas. Si eres propietario de un hogar y lo eliminas, sus contenidos se borran para todos los miembros, salvo que transfieras el hogar a otro adulto.</p>
+<h2>6. Tus derechos</h2>
+<p>Puedes acceder a tus datos, rectificarlos, exportarlos (en Ajustes, luego Privacidad y datos), eliminarlos, oponerte a ciertos tratamientos o retirar tu consentimiento. Escribe a contact@getnouk.app. También puedes presentar una reclamación ante la CNIL (cnil.fr), la autoridad francesa de protección de datos, o ante la autoridad de tu país (en España, la AEPD).</p>
+<h2>7. Menores</h2>
+<p>Las cuentas infantiles se crean por invitación de un adulto del hogar. Por debajo de la edad fijada en tu país (15 años en Francia, 14 en España) se requiere el consentimiento de un titular de la patria potestad.</p>
+<h2>8. Seguridad</h2>
+<p>Las comunicaciones están cifradas, el acceso a los datos está limitado por hogar y por rol, y una cuenta solo puede estar abierta en un iPhone a la vez.</p>
+<h2>9. Este sitio</h2>
+<p>Este sitio no utiliza cookies publicitarias ni herramientas de medición de audiencia.</p>` }
+    }
+  }
+};
+
+I18N.it = {
+  code: 'it', name: 'Italiano', langLabel: 'Lingua',
+  nav: { how: 'Come funziona', household: 'Famiglia', pricing: 'Prezzi', faq: 'Domande', download: 'Scarica' },
+  hero: {
+    eyebrow: 'L’app che ricorda dove metti le cose',
+    title: 'Di’ dove lo metti. Ritrovalo con <em>una domanda.</em>',
+    lede: 'Un solo pulsante. Dici «Ho messo le decorazioni di Natale nella cassa rossa in garage» e, quando sarà il momento, a casa basterà chiedere a Nouk.',
+    cta: 'Scarica su App Store', pricing: 'Vedi i prezzi',
+    fine: '14 giorni di prova gratuita · iPhone · 7 lingue',
+    hint: 'Tocca il pulsante per vedere Nouk all’opera', micLabel: 'Avvia la dimostrazione'
+  },
+  demos: [
+    { said: 'Ho messo il caricabatterie della fotocamera nel cassetto della scrivania.', k1: 'Oggetto', v1: 'Caricabatterie fotocamera', k2: 'Posto', v2: 'Cassetto della scrivania', t: '0:03' },
+    { said: 'Dove sono le decorazioni di Natale?', k1: 'Risposta', v1: 'Cassa rossa, garage', k2: 'Messo via da', v2: 'Léa · 10 mesi fa', t: '0:02' },
+    { said: 'Ho prestato il trapano a Marco.', k1: 'Prestato a', v1: 'Marco', k2: 'Promemoria', v2: 'Tra 2 settimane', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'Come funziona', title: 'Tre secondi per mettere via, tre per ritrovare.',
+    steps: [
+      { h: 'Metti via e lo dici', q: '«Ho messo il trapano sul banco da lavoro in garage.»', p: 'Tieni premuto il pulsante, parla come a qualcuno di casa, rilascia. Niente categorie, niente cartelle.' },
+      { h: 'Nouk verifica con te', q: 'Oggetto: trapano · Posto: banco in garage', p: 'Nouk capisce l’oggetto e il posto. Salvi con un tocco o correggi se serve.' },
+      { h: 'Chiedi, Nouk risponde', q: '«Dov’è il trapano?»', p: 'La risposta appare e Nouk la legge ad alta voce, con chi l’ha messo via e quando.' }
+    ],
+    phrases: ['«Dove sono le chiavi di riserva?»', '«Ho prestato la tenda a Sofia»', '«L’ho spostato nell’armadio dell’ingresso»', '«In quale scatolone è il bollitore?»']
+  },
+  house: {
+    eyebrow: 'Per tutta la casa', title: 'Smetti di essere l’unico che sa dov’è tutto.',
+    lede: 'Invita il tuo partner, i tuoi figli o i tuoi coinquilini. Tutti mettono via e cercano nella stessa memoria, invece di chiedere a te.',
+    checks: ['Invito tramite link o codice QR, con un tocco', 'Adulti con tutti i permessi, bambini senza eliminare', 'Ogni oggetto conserva la sua cronologia: messo via, spostato, preso, prestato', '«Chiedi alla famiglia» quando qualcosa proprio non si trova'],
+    members: [
+      { name: 'Léa', sub: 'Paga l’abbonamento', role: 'Titolare' },
+      { name: 'Karim', sub: '34 oggetti messi via', role: 'Adulto' },
+      { name: 'Emma, 9 anni', sub: 'Cerca e mette via', role: 'Bambina' }
+    ]
+  },
+  features: {
+    eyebrow: 'Funzioni', title: 'Tutto quello che serve, niente di più.',
+    items: [
+      { h: 'Siri e widget', p: '«Ehi Siri, dov’è il passaporto in Nouk?» E un ricordo del giorno nella schermata Home.' },
+      { h: 'Oggetti prestati', p: 'Annota a chi presti le cose e ricevi un promemoria per riavere il tuo trapano.' },
+      { h: 'Più posti', p: 'Due paia di forbici? Nouk ti dice che ce n’è un paio in cucina e uno nello studio.' },
+      { h: 'Modalità trasloco', p: 'Ogni scatolone diventa un posto. Detti mentre lo riempi, ritrovi mentre disimballi.' },
+      { h: 'Anche offline', p: 'Metti via le cose in cantina senza campo; tutto si sincronizza dopo.' },
+      { h: 'Chiaro e scuro', p: 'Un’interfaccia essenziale, leggibile con testo grande, che segue le impostazioni del tuo iPhone.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Privacy', title: 'La tua voce non lascia mai il tuo iPhone.',
+    p: 'La trascrizione avviene sul tuo telefono. Solo la frase scritta viene analizzata per trovare l’oggetto e il posto.',
+    items: ['Dati ospitati nell’Unione europea', 'Nessuna pubblicità, nessuna vendita di dati', 'Esporta o elimina l’account con un tocco']
+  },
+  pricing: {
+    eyebrow: 'Prezzi', title: 'Un prezzo per famiglia, mai per oggetto.', period: 'Periodo di fatturazione',
+    monthly: 'Mensile', yearly: 'Annuale · −37%', unitM: '/ mese', unitY: '/ anno',
+    plans: [
+      { name: 'Solo', m: '3,99 €', y: '29,99 €', perM: '', perY: 'cioè 2,50 € al mese', checks: ['Metti via e ritrova a voce, senza limiti', 'Siri, widget e risposte vocali', 'Oggetti prestati e promemoria'], cta: 'Prova 14 giorni' },
+      { name: 'Famiglia', badge: 'Il più scelto', best: true, m: '7,99 €', y: '59,99 €', perM: 'fino a 6 persone', perY: 'cioè 5 € al mese, fino a 6 persone', checks: ['Tutto ciò che include Solo', 'Fino a 6 persone, paga solo una', 'Attività e cronologia della famiglia'], cta: 'Prova 14 giorni' }
+    ],
+    pass: { name: 'Pass Trasloco', price: '9,99 €', unit: 'una tantum', per: '60 giorni, tutta la famiglia, senza abbonamento', checks: ['Fino a 6 persone', 'Metti via e ritrova senza limiti', 'Alla fine, la tua memoria resta consultabile'], cta: 'Ottieni il pass' },
+    trial: 'Prova completa di 14 giorni, poi abbonamento tramite App Store. Disdici quando vuoi dalle impostazioni del tuo iPhone.'
+  },
+  faq: {
+    eyebrow: 'Domande frequenti', title: 'Forse ti stai chiedendo…',
+    items: [
+      { q: 'Nouk registra la mia voce?', a: 'No. La tua voce viene trascritta direttamente sul tuo iPhone dal sistema di Apple. Viene inviato solo il testo della frase per capire l’oggetto e il posto.' },
+      { q: 'In quali lingue?', a: 'Italiano, inglese, francese, tedesco, spagnolo, olandese e portoghese. Ogni membro della famiglia può parlare nella propria lingua: la memoria resta condivisa.' },
+      { q: 'E se qualcuno in famiglia usa Android?', a: 'Nouk arriva prima su iPhone. Sono previste poi una versione web di consultazione e un’app Android.' },
+      { q: 'Quante persone in una famiglia?', a: 'Fino a 6, come In famiglia di Apple. Solo una persona paga l’abbonamento Famiglia.' },
+      { q: 'Cosa succede alla fine della prova?', a: 'Scegli Solo o Famiglia. Se non ti abboni, la tua memoria resta consultabile, ma non puoi più aggiungere oggetti né chiedere a voce.' },
+      { q: 'Posso usare il mio account su due iPhone?', a: 'Un account resta connesso su un solo iPhone alla volta. Per condividere con chi vive con te, l’abbonamento Famiglia dà a ognuno il proprio account.' },
+      { q: 'Come elimino i miei dati?', a: 'In Impostazioni, poi Elimina il mio account. Tutto viene cancellato definitivamente entro 30 giorni al massimo.' }
+    ]
+  },
+  final: { title: 'La prossima volta, chiedi a Nouk.', fine: '14 giorni di prova gratuita, senza impegno.' },
+  footer: { copy: '© 2026 Nouk · fatto in Francia', label: 'Pagine legali' },
+  legal: {
+    back: 'Torna alla home', updated: 'Ultimo aggiornamento: 6 novembre 2026',
+    draft: 'Bozza da far rivedere a un professionista del diritto prima della pubblicazione. I campi evidenziati sono da completare. In caso di differenze tra questa traduzione e la versione francese, prevale la versione francese.',
+    pages: {
+      notice: { short: 'Note legali', title: 'Note legali', html: `
+<h2>Editore</h2>
+<p>Il sito e l'app Nouk sono pubblicati da JFB Design, impresa individuale di diritto francese (entreprise individuelle).</p>
+<p>Contatto: contact@getnouk.app. Assistenza: support@getnouk.app.</p>
+<h2>Hosting</h2>
+<p>Sito web: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>Dati dell'app: Supabase Inc., su server situati nell'Unione europea.</p>
+<h2>Proprietà intellettuale</h2>
+<p>Il nome Nouk, il logo, l'interfaccia e i contenuti del sito sono protetti. È vietata qualsiasi riproduzione senza autorizzazione scritta di JFB Design.</p>
+<h2>Mediazione dei consumatori</h2>
+<p>Ai sensi del Codice del consumo francese, puoi rivolgerti gratuitamente al seguente mediatore: <span class="fill">[mediatore dei consumatori da designare]</span>.</p>
+<h2>Lingue</h2>
+<p>Le pagine legali sono disponibili in più lingue. In caso di differenze tra le versioni, prevale la versione francese.</p>` },
+      terms: { short: 'Condizioni d’uso', title: 'Condizioni generali d’uso', html: `
+<h2>1. Oggetto</h2>
+<p>Le presenti condizioni regolano l'uso dell'app Nouk, che permette di registrare, a voce o per iscritto, dove sono riposti gli oggetti e poi ritrovarli, da soli o all'interno di una famiglia. Creando un account, accetti queste condizioni.</p>
+<h2>2. Accesso al servizio</h2>
+<p>Nouk è disponibile su iPhone. L'account si crea con «Accedi con Apple» o via e-mail con un codice di verifica. Devi fornire informazioni corrette e mantenere riservato l'accesso al tuo account.</p>
+<p>Un account può essere connesso su un solo iPhone alla volta. Un nuovo accesso da un altro dispositivo disconnette automaticamente il precedente.</p>
+<h2>3. La famiglia</h2>
+<p>Una famiglia riunisce fino a 6 persone che condividono la stessa memoria degli oggetti. Il titolare della famiglia sottoscrive l'abbonamento Famiglia e invita gli altri membri tramite link o codice QR.</p>
+<ul>
+<li><strong>Titolare</strong>: tutti i permessi, compresa la gestione dell'abbonamento.</li>
+<li><strong>Adulto</strong>: gli stessi permessi del titolare, tranne la gestione dell'abbonamento.</li>
+<li><strong>Bambino</strong>: può cercare e mettere via, ma non eliminare né gestire la famiglia.</li>
+</ul>
+<p>I contenuti aggiunti alla famiglia sono visibili a tutti i membri. Un membro rimosso dalla famiglia perde subito l'accesso; gli oggetti che ha messo via restano nella memoria della famiglia.</p>
+<p>L'uso da parte di un minore di 15 anni avviene sotto la responsabilità e con il consenso di un titolare della responsabilità genitoriale, membro adulto della famiglia.</p>
+<h2>4. I tuoi contenuti</h2>
+<p>Gli oggetti, i posti, le foto e le cronologie che registri ti appartengono. Autorizzi l'editore a ospitarli e trattarli unicamente per far funzionare il servizio. Puoi esportarli o eliminarli in qualsiasi momento.</p>
+<h2>5. Intelligenza artificiale</h2>
+<p>Nouk utilizza un modello di intelligenza artificiale per identificare l'oggetto e il posto nelle tue frasi. Questo trattamento può sbagliare: una scheda di verifica ti permette di correggere prima di salvare. Nouk non garantisce l'esattezza delle risposte, che dipendono da ciò che i membri hanno registrato.</p>
+<h2>6. Uso consentito</h2>
+<p>Ti impegni a non usare Nouk per archiviare contenuti illeciti, a non tentare di aggirare i limiti del servizio (in particolare l'accesso su un solo dispositivo) e a non disturbarne il funzionamento. Un limite tecnico di 300 frasi al giorno protegge il servizio dagli usi automatizzati.</p>
+<h2>7. Responsabilità</h2>
+<p>Nouk è un promemoria. Non costituisce un inventario certificato e non deve essere usato come prova nei confronti di un assicuratore. L'editore fa il possibile per garantire la disponibilità del servizio, senza poter garantire l'assenza totale di interruzioni.</p>
+<h2>8. Sospensione e chiusura dell'account</h2>
+<p>Puoi eliminare il tuo account in qualsiasi momento dalle impostazioni dell'app. L'editore può sospendere un account in caso di grave violazione delle presenti condizioni, dopo averti informato salvo urgenza.</p>
+<h2>9. Modifiche</h2>
+<p>Queste condizioni possono cambiare. Sarai informato nell'app di ogni modifica importante prima della sua entrata in vigore.</p>
+<h2>10. Legge applicabile</h2>
+<p>Le presenti condizioni sono regolate dal diritto francese, senza privarti della tutela garantita dalle norme imperative del tuo paese di residenza. In caso di controversia, si cercherà prima una soluzione amichevole, in particolare tramite il mediatore indicato nelle <a href="#notice">note legali</a>.</p>` },
+      sale: { short: 'Condizioni di vendita', title: 'Condizioni generali di vendita', html: `
+<h2>1. Offerte e prezzi</h2>
+<div class="tbl"><table>
+<thead><tr><th>Offerta</th><th>Prezzo IVA inclusa</th><th>Durata</th><th>Persone</th></tr></thead>
+<tbody>
+<tr><td>Prova</td><td>Gratuita</td><td>14 giorni</td><td>1</td></tr>
+<tr><td>Solo</td><td>3,99 € / mese o 29,99 € / anno</td><td>Rinnovo automatico</td><td>1</td></tr>
+<tr><td>Famiglia</td><td>7,99 € / mese o 59,99 € / anno</td><td>Rinnovo automatico</td><td>Fino a 6</td></tr>
+<tr><td>Pass Trasloco</td><td>9,99 € una tantum</td><td>60 giorni, senza rinnovo</td><td>Fino a 6</td></tr>
+</tbody>
+</table></div>
+<p>I prezzi si intendono comprensivi di tutte le imposte. Possono variare in base al paese del tuo account App Store.</p>
+<h2>2. Pagamento</h2>
+<p>Tutti gli acquisti avvengono tramite l'App Store di Apple, con il metodo di pagamento associato al tuo Account Apple. L'editore non ha mai accesso ai tuoi dati bancari.</p>
+<h2>3. Prova gratuita</h2>
+<p>La prova dà accesso a tutte le funzioni per 14 giorni. Senza abbonamento alla scadenza, l'accesso diventa di sola consultazione. Se scegli un'offerta durante la prova, il primo addebito avviene alla fine della prova, salvo disdetta almeno 24 ore prima.</p>
+<h2>4. Rinnovo e disdetta</h2>
+<p>Gli abbonamenti Solo e Famiglia si rinnovano automaticamente a ogni scadenza, salvo disdetta almeno 24 ore prima della fine del periodo in corso, da Impostazioni, poi il tuo nome, poi Abbonamenti. La disdetta ha effetto alla fine del periodo già pagato.</p>
+<h2>5. Pass Trasloco</h2>
+<p>Il Pass Trasloco è un acquisto unico, valido 60 giorni dall'acquisto, senza rinnovo. Può essere acquistato una volta ogni 12 mesi, per account e per famiglia. Alla scadenza, la memoria resta consultabile in sola lettura; per aggiungere oggetti o chiedere a Nouk a voce, serve un abbonamento Solo o Famiglia.</p>
+<h2>6. Diritto di recesso</h2>
+<p>Il servizio è un contenuto digitale fornito subito dopo l'acquisto. Confermando l'acquisto, chiedi l'esecuzione immediata e riconosci di rinunciare al diritto di recesso di 14 giorni, ai sensi dell'articolo L221-28 del Codice del consumo francese (art. 16, lettera m, della Direttiva 2011/83/UE). Le richieste di rimborso sono gestite da Apple su reportaproblem.apple.com.</p>
+<h2>7. Variazioni di prezzo</h2>
+<p>In caso di aumento di prezzo, Apple e l'app ti avviseranno prima che si applichi, con la possibilità di disdire.</p>
+<h2>8. Reclami</h2>
+<p>Per qualsiasi domanda: support@getnouk.app. Mediazione dei consumatori: vedi le <a href="#notice">note legali</a>.</p>` },
+      privacy: { short: 'Privacy', title: 'Informativa sulla privacy', html: `
+<h2>1. Titolare del trattamento</h2>
+<p>JFB Design, impresa individuale, editore di Nouk. Contatto per i tuoi dati: contact@getnouk.app.</p>
+<h2>2. La tua voce</h2>
+<p>La trascrizione della tua voce avviene sul tuo iPhone tramite il riconoscimento vocale di Apple. Nessuna registrazione audio viene inviata ai nostri server né conservata da Nouk.</p>
+<h2>3. Dati raccolti</h2>
+<div class="tbl"><table>
+<thead><tr><th>Dati</th><th>Perché</th><th>Base giuridica</th></tr></thead>
+<tbody>
+<tr><td>Account: nome, indirizzo e-mail (o indirizzo di inoltro Apple)</td><td>Creare e proteggere il tuo account</td><td>Esecuzione del contratto</td></tr>
+<tr><td>Contenuti: oggetti, posti, foto, cronologia, prestiti</td><td>Far funzionare il servizio e condividerlo con la tua famiglia</td><td>Esecuzione del contratto</td></tr>
+<tr><td>Testo delle frasi dettate o scritte</td><td>Identificare l'oggetto e il posto</td><td>Esecuzione del contratto</td></tr>
+<tr><td>Famiglia: membri, ruoli, inviti</td><td>Gestire la condivisione e i permessi</td><td>Esecuzione del contratto</td></tr>
+<tr><td>Dispositivo attivo, token di notifica</td><td>Una sola sessione per account, inviare promemoria</td><td>Legittimo interesse; consenso per le notifiche</td></tr>
+<tr><td>Stato dell'abbonamento (senza dati bancari)</td><td>Dare accesso alla tua offerta</td><td>Esecuzione del contratto</td></tr>
+<tr><td>Statistiche anonime, se le attivi</td><td>Migliorare l'app</td><td>Consenso</td></tr>
+</tbody>
+</table></div>
+<p>Nouk non mostra pubblicità e non vende dati.</p>
+<h2>4. Chi riceve i tuoi dati</h2>
+<ul>
+<li><strong>I membri della tua famiglia</strong>, per i contenuti condivisi.</li>
+<li><strong>Supabase</strong>: hosting del database, nell'Unione europea.</li>
+<li><strong>Anthropic</strong>: analisi del testo delle tue frasi tramite il modello Claude, per identificare l'oggetto e il posto. Questo fornitore può trattare dati al di fuori dell'Unione europea, con garanzie contrattuali (clausole contrattuali tipo).</li>
+<li><strong>Apple</strong>: accesso con Apple, pagamenti e notifiche.</li>
+<li><strong>Gestione degli abbonamenti</strong>: RevenueCat.</li>
+<li><strong>Link di invito</strong>: Branch.</li>
+</ul>
+<h2>5. Conservazione</h2>
+<p>I tuoi dati sono conservati finché il tuo account è attivo. Dopo l'eliminazione dell'account, vengono cancellati entro 30 giorni al massimo, backup compresi. Se sei titolare di una famiglia e la elimini, i suoi contenuti vengono cancellati per tutti i membri, a meno che tu non trasferisca la famiglia a un altro adulto.</p>
+<h2>6. I tuoi diritti</h2>
+<p>Puoi accedere ai tuoi dati, rettificarli, esportarli (in Impostazioni, poi Privacy e dati), eliminarli, opporti a certi trattamenti o revocare il consenso. Scrivi a contact@getnouk.app. Puoi anche presentare reclamo alla CNIL (cnil.fr), l'autorità francese per la protezione dei dati, o all'autorità del tuo paese (in Italia, il Garante per la protezione dei dati personali).</p>
+<h2>7. Minori</h2>
+<p>Gli account per bambini vengono creati su invito di un adulto della famiglia. Al di sotto dell'età fissata nel tuo paese (15 anni in Francia, 14 in Italia) è richiesto il consenso di un titolare della responsabilità genitoriale.</p>
+<h2>8. Sicurezza</h2>
+<p>Le comunicazioni sono cifrate, l'accesso ai dati è limitato per famiglia e per ruolo, e un account può essere aperto su un solo iPhone alla volta.</p>
+<h2>9. Questo sito</h2>
+<p>Questo sito non utilizza cookie pubblicitari né strumenti di misurazione dell'audience.</p>` }
+    }
+  }
+};
+
+I18N.nl = {
+  code: 'nl', name: 'Nederlands', langLabel: 'Taal',
+  nav: { how: 'Zo werkt het', household: 'Huishouden', pricing: 'Prijzen', faq: 'Vragen', download: 'Download' },
+  hero: {
+    eyebrow: 'De app die onthoudt waar je dingen opbergt',
+    title: 'Zeg waar je het legt. Vind het met <em>één vraag.</em>',
+    lede: 'Eén knop. Je zegt ‘Ik heb de kerstversiering in de rode bak in de garage gezet’, en als het zover is, hoeft iedereen thuis het alleen nog aan Nouk te vragen.',
+    cta: 'Download in de App Store', pricing: 'Bekijk de prijzen',
+    fine: '14 dagen gratis proberen · iPhone · 7 talen',
+    hint: 'Tik op de knop om Nouk aan het werk te zien', micLabel: 'Start de demo'
+  },
+  demos: [
+    { said: 'Ik heb de oplader van de camera in de bureaula gelegd.', k1: 'Voorwerp', v1: 'Camera-oplader', k2: 'Plek', v2: 'Bureaula', t: '0:03' },
+    { said: 'Waar is de kerstversiering?', k1: 'Antwoord', v1: 'Rode bak, garage', k2: 'Opgeborgen door', v2: 'Léa · 10 maanden geleden', t: '0:02' },
+    { said: 'Ik heb de boormachine aan Mark uitgeleend.', k1: 'Uitgeleend aan', v1: 'Mark', k2: 'Herinnering', v2: 'Over 2 weken', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'Zo werkt het', title: 'Drie seconden om op te bergen, drie om terug te vinden.',
+    steps: [
+      { h: 'Opbergen en zeggen', q: '‘Ik heb de boormachine op de werkbank in de garage gelegd.’', p: 'Houd de knop ingedrukt, praat zoals tegen iemand thuis, laat los. Geen categorieën, geen mappen.' },
+      { h: 'Nouk checkt het met je', q: 'Voorwerp: boormachine · Plek: werkbank, garage', p: 'Nouk herkent het voorwerp en de plek. Bewaar met één tik, of corrigeer als het nodig is.' },
+      { h: 'Vraag het, Nouk antwoordt', q: '‘Waar is de boormachine?’', p: 'Het antwoord verschijnt en Nouk leest het voor, met wie het heeft opgeborgen en wanneer.' }
+    ],
+    phrases: ['‘Waar zijn de reservesleutels?’', '‘Ik heb de tent aan Sophie uitgeleend’', '‘Ik heb het naar de gangkast verplaatst’', '‘In welke doos zit de waterkoker?’']
+  },
+  house: {
+    eyebrow: 'Voor het hele huis', title: 'Stop met degene zijn die weet waar alles ligt.',
+    lede: 'Nodig je partner, je kinderen of je huisgenoten uit. Iedereen bergt op en zoekt in hetzelfde geheugen, in plaats van het aan jou te vragen.',
+    checks: ['Uitnodigen via link of QR-code, met één tik', 'Volwassenen met alle rechten, kinderen zonder verwijderen', 'Elk voorwerp houdt zijn geschiedenis bij: opgeborgen, verplaatst, gepakt, uitgeleend', '‘Vraag het huishouden’ als iets echt niet opduikt'],
+    members: [
+      { name: 'Léa', sub: 'Betaalt het abonnement', role: 'Eigenaar' },
+      { name: 'Karim', sub: '34 voorwerpen opgeborgen', role: 'Volwassene' },
+      { name: 'Emma, 9', sub: 'Zoekt en bergt op', role: 'Kind' }
+    ]
+  },
+  features: {
+    eyebrow: 'Functies', title: 'Alles wat je nodig hebt, niets meer.',
+    items: [
+      { h: 'Siri en widgets', p: '‘Hé Siri, waar is het paspoort in Nouk?’ En elke dag een herinnering op je beginscherm.' },
+      { h: 'Uitgeleende spullen', p: 'Noteer aan wie je iets uitleent en krijg een herinnering om je boormachine terug te halen.' },
+      { h: 'Meerdere plekken', p: 'Twee scharen? Nouk vertelt je dat er een in de keuken en een in de werkkamer ligt.' },
+      { h: 'Verhuismodus', p: 'Elke doos wordt een plek. Dicteer tijdens het inpakken, vind terug tijdens het uitpakken.' },
+      { h: 'Ook offline', p: 'Berg dingen op in de kelder zonder bereik; alles synchroniseert daarna.' },
+      { h: 'Licht en donker', p: 'Een strakke interface, goed leesbaar met grote tekst, die de instellingen van je iPhone volgt.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Privacy', title: 'Je stem verlaat nooit je iPhone.',
+    p: 'De transcriptie gebeurt op je telefoon. Alleen de geschreven zin wordt geanalyseerd om het voorwerp en de plek te vinden.',
+    items: ['Gegevens opgeslagen in de Europese Unie', 'Geen advertenties, geen verkoop van gegevens', 'Je account exporteren of verwijderen met één tik']
+  },
+  pricing: {
+    eyebrow: 'Prijzen', title: 'Eén prijs per huishouden, nooit per voorwerp.', period: 'Factuurperiode',
+    monthly: 'Maandelijks', yearly: 'Jaarlijks · −37%', unitM: '/ maand', unitY: '/ jaar',
+    plans: [
+      { name: 'Solo', m: '€ 3,99', y: '€ 29,99', perM: '', perY: 'dus € 2,50 per maand', checks: ['Opbergen en vinden met je stem, onbeperkt', 'Siri, widgets en gesproken antwoorden', 'Uitgeleende spullen en herinneringen'], cta: '14 dagen proberen' },
+      { name: 'Huishouden', badge: 'Meest gekozen', best: true, m: '€ 7,99', y: '€ 59,99', perM: 'tot 6 personen', perY: 'dus € 5 per maand, tot 6 personen', checks: ['Alles van Solo', 'Tot 6 personen, één betaalt', 'Activiteit en geschiedenis van het huishouden'], cta: '14 dagen proberen' }
+    ],
+    pass: { name: 'Verhuispas', price: '€ 9,99', unit: 'eenmalig', per: '60 dagen, het hele gezin, zonder abonnement', checks: ['Tot 6 personen', 'Opbergen en vinden, onbeperkt', 'Daarna blijft je geheugen in te zien'], cta: 'Pas aanschaffen' },
+    trial: 'Volledige proefperiode van 14 dagen, daarna een abonnement via de App Store. Altijd opzegbaar in de instellingen van je iPhone.'
+  },
+  faq: {
+    eyebrow: 'Veelgestelde vragen', title: 'Misschien vraag je je af…',
+    items: [
+      { q: 'Neemt Nouk mijn stem op?', a: 'Nee. Je stem wordt direct op je iPhone omgezet in tekst door het systeem van Apple. Alleen de tekst van je zin wordt verstuurd om het voorwerp en de plek te begrijpen.' },
+      { q: 'In welke talen?', a: 'Nederlands, Engels, Frans, Duits, Spaans, Italiaans en Portugees. Elk lid van het huishouden kan zijn eigen taal spreken: het geheugen blijft gedeeld.' },
+      { q: 'En als iemand in het gezin Android heeft?', a: 'Nouk komt eerst naar de iPhone. Daarna komen er een webversie om mee te kijken en een Android-app.' },
+      { q: 'Hoeveel mensen in een huishouden?', a: 'Tot 6, net als Delen met gezin van Apple. Eén persoon betaalt het Huishouden-abonnement.' },
+      { q: 'Wat gebeurt er na de proefperiode?', a: 'Je kiest Solo of Huishouden. Zonder abonnement blijft je geheugen in te zien, maar kun je geen voorwerpen meer toevoegen of met je stem vragen stellen.' },
+      { q: 'Kan ik mijn account op twee iPhones gebruiken?', a: 'Een account is steeds op één iPhone ingelogd. Om te delen met je huisgenoten krijgt met het Huishouden-abonnement iedereen een eigen account.' },
+      { q: 'Hoe verwijder ik mijn gegevens?', a: 'Ga naar Instellingen en dan Mijn account verwijderen. Alles wordt binnen maximaal 30 dagen definitief gewist.' }
+    ]
+  },
+  final: { title: 'Vraag het volgende keer gewoon aan Nouk.', fine: '14 dagen gratis proberen, zonder verplichtingen.' },
+  footer: { copy: '© 2026 Nouk · gemaakt in Frankrijk', label: 'Juridische pagina’s' },
+  legal: {
+    back: 'Terug naar home', updated: 'Laatst bijgewerkt: 6 november 2026',
+    draft: 'Concept dat vóór publicatie door een juridisch professional moet worden nagekeken. Gemarkeerde velden moeten nog worden ingevuld. Bij verschillen tussen deze vertaling en de Franse versie geldt de Franse versie.',
+    pages: {
+      notice: { short: 'Colofon', title: 'Colofon en wettelijke informatie', html: `
+<h2>Uitgever</h2>
+<p>De website en de app Nouk worden uitgegeven door JFB Design, eenmanszaak naar Frans recht (entreprise individuelle).</p>
+<p>Contact: contact@getnouk.app. Ondersteuning: support@getnouk.app.</p>
+<h2>Hosting</h2>
+<p>Website: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>Gegevens van de app: Supabase Inc., op servers in de Europese Unie.</p>
+<h2>Intellectueel eigendom</h2>
+<p>De naam Nouk, het logo, de interface en de inhoud van de website zijn beschermd. Elke reproductie zonder schriftelijke toestemming van JFB Design is verboden.</p>
+<h2>Geschillenbemiddeling voor consumenten</h2>
+<p>Volgens het Franse consumentenwetboek kun je gratis terecht bij de volgende bemiddelaar: <span class="fill">[consumentenbemiddelaar nog aan te wijzen]</span>.</p>
+<h2>Talen</h2>
+<p>De juridische pagina's zijn in meerdere talen beschikbaar. Bij verschillen tussen de versies geldt de Franse versie.</p>` },
+      terms: { short: 'Gebruiksvoorwaarden', title: 'Algemene gebruiksvoorwaarden', html: `
+<h2>1. Onderwerp</h2>
+<p>Deze voorwaarden regelen het gebruik van de app Nouk, waarmee je met je stem of schriftelijk vastlegt waar voorwerpen zijn opgeborgen, om ze daarna terug te vinden, alleen of binnen een huishouden. Door een account aan te maken, aanvaard je deze voorwaarden.</p>
+<h2>2. Toegang tot de dienst</h2>
+<p>Nouk is beschikbaar op de iPhone. Je maakt een account aan met ‘Log in met Apple’ of per e-mail met een verificatiecode. Je moet juiste gegevens opgeven en de toegang tot je account vertrouwelijk houden.</p>
+<p>Een account kan op één iPhone tegelijk ingelogd zijn. Inloggen op een ander apparaat logt het vorige automatisch uit.</p>
+<h2>3. Het huishouden</h2>
+<p>Een huishouden brengt tot 6 personen samen die hetzelfde geheugen van voorwerpen delen. De eigenaar van het huishouden neemt het Huishouden-abonnement en nodigt de andere leden uit via link of QR-code.</p>
+<ul>
+<li><strong>Eigenaar</strong>: alle rechten, inclusief het beheer van het abonnement.</li>
+<li><strong>Volwassene</strong>: dezelfde rechten als de eigenaar, behalve het beheer van het abonnement.</li>
+<li><strong>Kind</strong>: kan zoeken en opbergen, maar niet verwijderen of het huishouden beheren.</li>
+</ul>
+<p>Inhoud in het huishouden is zichtbaar voor alle leden. Een lid dat uit het huishouden wordt verwijderd, verliest direct de toegang; de voorwerpen die het heeft opgeborgen blijven in het geheugen van het huishouden.</p>
+<p>Gebruik door een minderjarige jonger dan 15 jaar gebeurt onder verantwoordelijkheid en met toestemming van een ouder of voogd die volwassen lid van het huishouden is.</p>
+<h2>4. Jouw inhoud</h2>
+<p>De voorwerpen, plekken, foto's en geschiedenis die je vastlegt, zijn van jou. Je geeft de uitgever toestemming ze uitsluitend op te slaan en te verwerken om de dienst te laten werken. Je kunt ze op elk moment exporteren of verwijderen.</p>
+<h2>5. Kunstmatige intelligentie</h2>
+<p>Nouk gebruikt een AI-model om het voorwerp en de plek in je zinnen te herkennen. Die verwerking kan zich vergissen: met een controlekaart kun je corrigeren voordat je opslaat. Nouk garandeert niet dat de antwoorden juist zijn; ze hangen af van wat de leden hebben vastgelegd.</p>
+<h2>6. Aanvaardbaar gebruik</h2>
+<p>Je verbindt je ertoe Nouk niet te gebruiken om onrechtmatige inhoud op te slaan, de grenzen van de dienst niet te omzeilen (met name het inloggen op één apparaat) en de werking ervan niet te verstoren. Een technische limiet van 300 zinnen per dag beschermt de dienst tegen geautomatiseerd gebruik.</p>
+<h2>7. Aansprakelijkheid</h2>
+<p>Nouk is een geheugensteun. Het is geen gecertificeerde inventaris en mag niet als bewijs tegenover een verzekeraar dienen. De uitgever doet zijn best om de dienst beschikbaar te houden, maar kan niet garanderen dat die nooit onderbroken wordt.</p>
+<h2>8. Opschorting en sluiting van het account</h2>
+<p>Je kunt je account op elk moment verwijderen in de instellingen van de app. De uitgever kan een account opschorten bij een ernstige schending van deze voorwaarden, na je te hebben geïnformeerd, behalve in spoedgevallen.</p>
+<h2>9. Wijzigingen</h2>
+<p>Deze voorwaarden kunnen veranderen. Over belangrijke wijzigingen word je in de app geïnformeerd voordat ze ingaan.</p>
+<h2>10. Toepasselijk recht</h2>
+<p>Op deze voorwaarden is Frans recht van toepassing, zonder dat je de bescherming verliest van de dwingende regels van je woonland. Bij een geschil wordt eerst een minnelijke oplossing gezocht, met name via de bemiddelaar in het <a href="#notice">colofon</a>.</p>` },
+      sale: { short: 'Verkoopvoorwaarden', title: 'Algemene verkoopvoorwaarden', html: `
+<h2>1. Aanbod en prijzen</h2>
+<div class="tbl"><table>
+<thead><tr><th>Aanbod</th><th>Prijs incl. btw</th><th>Looptijd</th><th>Personen</th></tr></thead>
+<tbody>
+<tr><td>Proefperiode</td><td>Gratis</td><td>14 dagen</td><td>1</td></tr>
+<tr><td>Solo</td><td>€ 3,99 / maand of € 29,99 / jaar</td><td>Automatische verlenging</td><td>1</td></tr>
+<tr><td>Huishouden</td><td>€ 7,99 / maand of € 59,99 / jaar</td><td>Automatische verlenging</td><td>Tot 6</td></tr>
+<tr><td>Verhuispas</td><td>€ 9,99 eenmalig</td><td>60 dagen, geen verlenging</td><td>Tot 6</td></tr>
+</tbody>
+</table></div>
+<p>Alle prijzen zijn inclusief belastingen. Ze kunnen verschillen per land van je App Store-account.</p>
+<h2>2. Betaling</h2>
+<p>Alle aankopen verlopen via de App Store van Apple, met de betaalmethode van je Apple-account. De uitgever heeft nooit toegang tot je bankgegevens.</p>
+<h2>3. Gratis proefperiode</h2>
+<p>De proefperiode geeft 14 dagen toegang tot alle functies. Zonder abonnement daarna wordt de toegang alleen-lezen. Kies je tijdens de proefperiode een aanbod, dan vindt de eerste afschrijving plaats aan het einde van de proefperiode, tenzij je minstens 24 uur van tevoren opzegt.</p>
+<h2>4. Verlenging en opzegging</h2>
+<p>De abonnementen Solo en Huishouden worden bij elke vervaldatum automatisch verlengd, tenzij je minstens 24 uur voor het einde van de lopende periode opzegt via Instellingen, dan je naam, dan Abonnementen. De opzegging gaat in aan het einde van de al betaalde periode.</p>
+<h2>5. Verhuispas</h2>
+<p>De Verhuispas is een eenmalige aankoop, 60 dagen geldig vanaf de aankoop, zonder verlenging. Hij kan eenmaal per periode van 12 maanden worden gekocht, per account en per huishouden. Na afloop blijft het geheugen alleen-lezen in te zien; om voorwerpen toe te voegen of Nouk met je stem te vragen, heb je Solo of Huishouden nodig.</p>
+<h2>6. Herroepingsrecht</h2>
+<p>De dienst is digitale inhoud die direct na aankoop wordt geleverd. Door je aankoop te bevestigen, vraag je om directe levering en erken je dat je afziet van je herroepingsrecht van 14 dagen, overeenkomstig artikel L221-28 van het Franse consumentenwetboek (art. 16, onder m, van Richtlijn 2011/83/EU). Terugbetalingsverzoeken worden door Apple behandeld via reportaproblem.apple.com.</p>
+<h2>7. Prijswijzigingen</h2>
+<p>Bij een prijsverhoging word je door Apple en in de app op de hoogte gebracht voordat die ingaat, met de mogelijkheid om op te zeggen.</p>
+<h2>8. Klachten</h2>
+<p>Voor vragen: support@getnouk.app. Geschillenbemiddeling: zie het <a href="#notice">colofon</a>.</p>` },
+      privacy: { short: 'Privacy', title: 'Privacybeleid', html: `
+<h2>1. Verwerkingsverantwoordelijke</h2>
+<p>JFB Design, eenmanszaak, uitgever van Nouk. Contact over je gegevens: contact@getnouk.app.</p>
+<h2>2. Je stem</h2>
+<p>Je stem wordt op je iPhone omgezet in tekst door de spraakherkenning van Apple. Er wordt geen geluidsopname naar onze servers gestuurd of door Nouk bewaard.</p>
+<h2>3. Verzamelde gegevens</h2>
+<div class="tbl"><table>
+<thead><tr><th>Gegevens</th><th>Waarvoor</th><th>Rechtsgrond</th></tr></thead>
+<tbody>
+<tr><td>Account: naam, e-mailadres (of doorstuuradres van Apple)</td><td>Je account aanmaken en beveiligen</td><td>Uitvoering van de overeenkomst</td></tr>
+<tr><td>Inhoud: voorwerpen, plekken, foto's, geschiedenis, uitleningen</td><td>De dienst laten werken en delen met je huishouden</td><td>Uitvoering van de overeenkomst</td></tr>
+<tr><td>Tekst van gedicteerde of getypte zinnen</td><td>Het voorwerp en de plek herkennen</td><td>Uitvoering van de overeenkomst</td></tr>
+<tr><td>Huishouden: leden, rollen, uitnodigingen</td><td>Delen en rechten beheren</td><td>Uitvoering van de overeenkomst</td></tr>
+<tr><td>Actief apparaat, meldingstoken</td><td>Eén sessie per account, herinneringen sturen</td><td>Gerechtvaardigd belang; toestemming voor meldingen</td></tr>
+<tr><td>Abonnementsstatus (zonder bankgegevens)</td><td>Toegang geven tot je aanbod</td><td>Uitvoering van de overeenkomst</td></tr>
+<tr><td>Anonieme statistieken, als je die inschakelt</td><td>De app verbeteren</td><td>Toestemming</td></tr>
+</tbody>
+</table></div>
+<p>Nouk toont geen advertenties en verkoopt geen gegevens.</p>
+<h2>4. Wie je gegevens ontvangt</h2>
+<ul>
+<li><strong>De leden van je huishouden</strong>, voor gedeelde inhoud.</li>
+<li><strong>Supabase</strong>: hosting van de database, in de Europese Unie.</li>
+<li><strong>Anthropic</strong>: analyse van de tekst van je zinnen door het model Claude, om het voorwerp en de plek te herkennen. Deze dienstverlener kan gegevens buiten de Europese Unie verwerken, met contractuele waarborgen (modelcontractbepalingen).</li>
+<li><strong>Apple</strong>: inloggen met Apple, betalingen en meldingen.</li>
+<li><strong>Abonnementsbeheer</strong>: RevenueCat.</li>
+<li><strong>Uitnodigingslinks</strong>: Branch.</li>
+</ul>
+<h2>5. Bewaartermijn</h2>
+<p>Je gegevens worden bewaard zolang je account actief is. Na verwijdering van je account worden ze binnen maximaal 30 dagen gewist, back-ups inbegrepen. Als je eigenaar van een huishouden bent en het verwijdert, wordt de inhoud voor alle leden gewist, tenzij je het huishouden overdraagt aan een andere volwassene.</p>
+<h2>6. Je rechten</h2>
+<p>Je kunt je gegevens inzien, corrigeren, exporteren (in Instellingen, dan Privacy en gegevens) en verwijderen, bezwaar maken tegen bepaalde verwerkingen of je toestemming intrekken. Schrijf naar contact@getnouk.app. Je kunt ook een klacht indienen bij de CNIL (cnil.fr), de Franse privacytoezichthouder, of bij de toezichthouder in je land (in Nederland de Autoriteit Persoonsgegevens, in België de Gegevensbeschermingsautoriteit).</p>
+<h2>7. Minderjarigen</h2>
+<p>Accounts voor kinderen worden aangemaakt op uitnodiging van een volwassene in het huishouden. Onder de leeftijd die in je land geldt (15 jaar in Frankrijk, 16 in Nederland, 13 in België) is toestemming van een ouder of voogd nodig.</p>
+<h2>8. Beveiliging</h2>
+<p>De verbindingen zijn versleuteld, de toegang tot gegevens is beperkt per huishouden en per rol, en een account kan op één iPhone tegelijk geopend zijn.</p>
+<h2>9. Deze website</h2>
+<p>Deze website gebruikt geen advertentiecookies en geen tools voor bezoekersmeting.</p>` }
+    }
+  }
+};
+
+I18N.pt = {
+  code: 'pt', name: 'Português', langLabel: 'Idioma',
+  nav: { how: 'Como funciona', household: 'Família', pricing: 'Preços', faq: 'Perguntas', download: 'Descarregar' },
+  hero: {
+    eyebrow: 'A app que se lembra de onde guardas as coisas',
+    title: 'Diz onde guardas. Encontra com <em>uma pergunta.</em>',
+    lede: 'Um só botão. Dizes «Pus as decorações de Natal na caixa vermelha da garagem» e, quando chegar o dia, em casa basta perguntar ao Nouk.',
+    cta: 'Descarregar na App Store', pricing: 'Ver preços',
+    fine: '14 dias de teste grátis · iPhone · 7 idiomas',
+    hint: 'Toca no botão para ver o Nouk em ação', micLabel: 'Iniciar a demonstração'
+  },
+  demos: [
+    { said: 'Pus o carregador da câmara na gaveta da secretária.', k1: 'Objeto', v1: 'Carregador da câmara', k2: 'Local', v2: 'Gaveta da secretária', t: '0:03' },
+    { said: 'Onde estão as decorações de Natal?', k1: 'Resposta', v1: 'Caixa vermelha, garagem', k2: 'Guardado por', v2: 'Léa · há 10 meses', t: '0:02' },
+    { said: 'Emprestei o berbequim ao Marco.', k1: 'Emprestado a', v1: 'Marco', k2: 'Lembrete', v2: 'Daqui a 2 semanas', t: '0:02' }
+  ],
+  how: {
+    eyebrow: 'Como funciona', title: 'Três segundos para guardar, três para encontrar.',
+    steps: [
+      { h: 'Guardas e dizes', q: '«Pus o berbequim na bancada da garagem.»', p: 'Mantém o botão premido, fala como falarias com alguém de casa e solta. Sem categorias, sem pastas.' },
+      { h: 'O Nouk confirma contigo', q: 'Objeto: berbequim · Local: bancada da garagem', p: 'O Nouk percebe o objeto e o local. Guardas com um toque ou corriges se for preciso.' },
+      { h: 'Perguntas, o Nouk responde', q: '«Onde está o berbequim?»', p: 'A resposta aparece e o Nouk lê-a em voz alta, com quem o guardou e quando.' }
+    ],
+    phrases: ['«Onde estão as chaves suplentes?»', '«Emprestei a tenda à Sofia»', '«Mudei-o para o roupeiro da entrada»', '«Em que caixa está a chaleira?»']
+  },
+  house: {
+    eyebrow: 'Para a casa toda', title: 'Deixa de ser quem sabe onde está tudo.',
+    lede: 'Convida o teu companheiro, os teus filhos ou os teus colegas de casa. Todos guardam e procuram na mesma memória, em vez de te perguntarem.',
+    checks: ['Convite por link ou código QR, com um toque', 'Adultos com todos os direitos, crianças sem apagar', 'Cada objeto guarda o seu histórico: guardado, mudado, levado, emprestado', '«Perguntar à família» quando algo não aparece'],
+    members: [
+      { name: 'Léa', sub: 'Paga a subscrição', role: 'Titular' },
+      { name: 'Karim', sub: '34 objetos guardados', role: 'Adulto' },
+      { name: 'Emma, 9 anos', sub: 'Procura e guarda', role: 'Criança' }
+    ]
+  },
+  features: {
+    eyebrow: 'Funcionalidades', title: 'Tudo o que precisas, nada mais.',
+    items: [
+      { h: 'Siri e widgets', p: '«Siri, onde está o passaporte no Nouk?» E uma recordação do dia no teu ecrã principal.' },
+      { h: 'Objetos emprestados', p: 'Anota a quem emprestas e recebe um lembrete para recuperar o teu berbequim.' },
+      { h: 'Vários locais', p: 'Duas tesouras? O Nouk diz-te que há uma na cozinha e outra no escritório.' },
+      { h: 'Modo mudança', p: 'Cada caixa torna-se um local. Ditas ao encher, encontras ao desembalar.' },
+      { h: 'Também offline', p: 'Guarda coisas na cave sem rede; tudo sincroniza depois.' },
+      { h: 'Claro e escuro', p: 'Uma interface limpa, legível com texto grande, que segue as definições do teu iPhone.' }
+    ]
+  },
+  privacy: {
+    eyebrow: 'Privacidade', title: 'A tua voz nunca sai do teu iPhone.',
+    p: 'A transcrição é feita no teu telemóvel. Só a frase escrita é analisada para encontrar o objeto e o local.',
+    items: ['Dados alojados na União Europeia', 'Sem publicidade, sem venda de dados', 'Exporta ou apaga a tua conta com um toque']
+  },
+  pricing: {
+    eyebrow: 'Preços', title: 'Um preço por família, nunca por objeto.', period: 'Período de faturação',
+    monthly: 'Mensal', yearly: 'Anual · −37%', unitM: '/ mês', unitY: '/ ano',
+    plans: [
+      { name: 'Solo', m: '3,99 €', y: '29,99 €', perM: '', perY: 'ou seja, 2,50 € por mês', checks: ['Guardar e encontrar por voz, sem limites', 'Siri, widgets e respostas faladas', 'Objetos emprestados e lembretes'], cta: 'Experimentar 14 dias' },
+      { name: 'Família', badge: 'O mais escolhido', best: true, m: '7,99 €', y: '59,99 €', perM: 'até 6 pessoas', perY: 'ou seja, 5 € por mês, até 6 pessoas', checks: ['Tudo o que o Solo inclui', 'Até 6 pessoas, só uma paga', 'Atividade e histórico da família'], cta: 'Experimentar 14 dias' }
+    ],
+    pass: { name: 'Passe Mudança', price: '9,99 €', unit: 'pagamento único', per: '60 dias, a família toda, sem subscrição', checks: ['Até 6 pessoas', 'Guardar e encontrar sem limites', 'No fim, a tua memória continua disponível para consulta'], cta: 'Obter o passe' },
+    trial: 'Teste completo de 14 dias e depois subscrição através da App Store. Cancela quando quiseres nas definições do teu iPhone.'
+  },
+  faq: {
+    eyebrow: 'Perguntas frequentes', title: 'Talvez estejas a pensar…',
+    items: [
+      { q: 'O Nouk grava a minha voz?', a: 'Não. A tua voz é transcrita diretamente no teu iPhone pelo sistema da Apple. Só o texto da tua frase é enviado para perceber o objeto e o local.' },
+      { q: 'Em que idiomas?', a: 'Português, inglês, francês, alemão, espanhol, italiano e neerlandês. Cada membro da família pode falar na sua língua: a memória continua partilhada.' },
+      { q: 'E se alguém da família usar Android?', a: 'O Nouk chega primeiro ao iPhone. Depois estão previstas uma versão web de consulta e uma app Android.' },
+      { q: 'Quantas pessoas numa família?', a: 'Até 6, como a Partilha com a família da Apple. Só uma pessoa paga a subscrição Família.' },
+      { q: 'O que acontece no fim do teste?', a: 'Escolhes Solo ou Família. Se não subscreveres, a tua memória continua disponível para consulta, mas deixas de poder adicionar objetos ou perguntar por voz.' },
+      { q: 'Posso usar a minha conta em dois iPhones?', a: 'Uma conta só fica ligada num iPhone de cada vez. Para partilhar com quem vive contigo, a subscrição Família dá a cada pessoa a sua própria conta.' },
+      { q: 'Como apago os meus dados?', a: 'Em Definições, depois Apagar a minha conta. Tudo é apagado definitivamente no prazo máximo de 30 dias.' }
+    ]
+  },
+  final: { title: 'Da próxima vez, pergunta ao Nouk.', fine: '14 dias de teste grátis, sem compromisso.' },
+  footer: { copy: '© 2026 Nouk · feito em França', label: 'Páginas legais' },
+  legal: {
+    back: 'Voltar ao início', updated: 'Última atualização: 6 de novembro de 2026',
+    draft: 'Rascunho a rever por um profissional do direito antes da publicação. Os campos destacados estão por preencher. Em caso de divergência entre esta tradução e a versão francesa, prevalece a versão francesa.',
+    pages: {
+      notice: { short: 'Informação legal', title: 'Informação legal', html: `
+<h2>Editor</h2>
+<p>O site e a app Nouk são editados pela JFB Design, empresa em nome individual de direito francês (entreprise individuelle).</p>
+<p>Contacto: contact@getnouk.app. Apoio: support@getnouk.app.</p>
+<h2>Alojamento</h2>
+<p>Site: OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<p>Dados da app: Supabase Inc., em servidores localizados na União Europeia.</p>
+<h2>Propriedade intelectual</h2>
+<p>O nome Nouk, o logótipo, a interface e os conteúdos do site estão protegidos. É proibida qualquer reprodução sem autorização escrita da JFB Design.</p>
+<h2>Resolução alternativa de litígios</h2>
+<p>Nos termos do Código do Consumo francês, podes recorrer gratuitamente ao seguinte mediador: <span class="fill">[mediador de consumo a designar]</span>.</p>
+<h2>Idiomas</h2>
+<p>As páginas legais estão disponíveis em vários idiomas. Em caso de divergência entre versões, prevalece a versão francesa.</p>` },
+      terms: { short: 'Termos de utilização', title: 'Termos gerais de utilização', html: `
+<h2>1. Objeto</h2>
+<p>Estes termos regulam a utilização da app Nouk, que permite registar, por voz ou por escrito, onde estão guardados os objetos e depois encontrá-los, sozinho ou numa família. Ao criares uma conta, aceitas estes termos.</p>
+<h2>2. Acesso ao serviço</h2>
+<p>O Nouk está disponível no iPhone. A conta é criada com «Iniciar sessão com a Apple» ou por e-mail com um código de verificação. Deves fornecer informações exatas e manter confidencial o acesso à tua conta.</p>
+<p>Uma conta só pode ter sessão iniciada num iPhone de cada vez. Iniciar sessão noutro dispositivo termina automaticamente a sessão no anterior.</p>
+<h2>3. A família</h2>
+<p>Uma família reúne até 6 pessoas que partilham a mesma memória de objetos. O titular da família subscreve o plano Família e convida os outros membros por link ou código QR.</p>
+<ul>
+<li><strong>Titular</strong>: todos os direitos, incluindo a gestão da subscrição.</li>
+<li><strong>Adulto</strong>: os mesmos direitos que o titular, exceto a gestão da subscrição.</li>
+<li><strong>Criança</strong>: pode procurar e guardar, mas não apagar nem gerir a família.</li>
+</ul>
+<p>Os conteúdos adicionados à família são visíveis para todos os membros. Um membro removido da família perde o acesso de imediato; os objetos que guardou permanecem na memória da família.</p>
+<p>A utilização por um menor de 15 anos é feita sob a responsabilidade e com o consentimento de um titular das responsabilidades parentais que seja membro adulto da família.</p>
+<h2>4. Os teus conteúdos</h2>
+<p>Os objetos, locais, fotografias e históricos que registas pertencem-te. Autorizas o editor a alojá-los e tratá-los apenas para fazer funcionar o serviço. Podes exportá-los ou apagá-los a qualquer momento.</p>
+<h2>5. Inteligência artificial</h2>
+<p>O Nouk utiliza um modelo de inteligência artificial para identificar o objeto e o local nas tuas frases. Este tratamento pode enganar-se: um cartão de verificação permite-te corrigir antes de guardar. O Nouk não garante a exatidão das respostas, que dependem do que os membros registaram.</p>
+<h2>6. Utilização aceitável</h2>
+<p>Comprometes-te a não usar o Nouk para guardar conteúdos ilícitos, a não tentar contornar os limites do serviço (nomeadamente a sessão num só dispositivo) e a não perturbar o seu funcionamento. Um limite técnico de 300 frases por dia protege o serviço contra utilizações automatizadas.</p>
+<h2>7. Responsabilidade</h2>
+<p>O Nouk é uma ajuda à memória. Não constitui um inventário certificado e não deve servir de prova perante uma seguradora. O editor faz tudo para garantir a disponibilidade do serviço, sem poder garantir a ausência total de interrupções.</p>
+<h2>8. Suspensão e encerramento da conta</h2>
+<p>Podes apagar a tua conta a qualquer momento nas definições da app. O editor pode suspender uma conta em caso de violação grave destes termos, depois de te informar, salvo urgência.</p>
+<h2>9. Alterações</h2>
+<p>Estes termos podem mudar. Serás informado na app de qualquer alteração importante antes de entrar em vigor.</p>
+<h2>10. Lei aplicável</h2>
+<p>Estes termos regem-se pela lei francesa, sem te privar da proteção conferida pelas normas imperativas do teu país de residência. Em caso de litígio, procura-se primeiro uma solução amigável, nomeadamente através do mediador indicado na <a href="#notice">informação legal</a>.</p>` },
+      sale: { short: 'Condições de venda', title: 'Condições gerais de venda', html: `
+<h2>1. Ofertas e preços</h2>
+<div class="tbl"><table>
+<thead><tr><th>Oferta</th><th>Preço com IVA</th><th>Duração</th><th>Pessoas</th></tr></thead>
+<tbody>
+<tr><td>Teste</td><td>Grátis</td><td>14 dias</td><td>1</td></tr>
+<tr><td>Solo</td><td>3,99 € / mês ou 29,99 € / ano</td><td>Renovação automática</td><td>1</td></tr>
+<tr><td>Família</td><td>7,99 € / mês ou 59,99 € / ano</td><td>Renovação automática</td><td>Até 6</td></tr>
+<tr><td>Passe Mudança</td><td>9,99 € pagamento único</td><td>60 dias, sem renovação</td><td>Até 6</td></tr>
+</tbody>
+</table></div>
+<p>Os preços incluem todos os impostos. Podem variar consoante o país da tua conta da App Store.</p>
+<h2>2. Pagamento</h2>
+<p>Todas as compras são feitas através da App Store da Apple, com o método de pagamento associado à tua Conta Apple. O editor nunca tem acesso aos teus dados bancários.</p>
+<h2>3. Teste gratuito</h2>
+<p>O teste dá acesso a todas as funcionalidades durante 14 dias. Sem subscrição no fim, o acesso passa a ser só de consulta. Se escolheres uma oferta durante o teste, a primeira cobrança acontece no fim do teste, salvo cancelamento pelo menos 24 horas antes.</p>
+<h2>4. Renovação e cancelamento</h2>
+<p>As subscrições Solo e Família renovam-se automaticamente em cada vencimento, salvo cancelamento pelo menos 24 horas antes do fim do período em curso, em Definições, depois o teu nome, depois Subscrições. O cancelamento produz efeito no fim do período já pago.</p>
+<h2>5. Passe Mudança</h2>
+<p>O Passe Mudança é uma compra única, válida durante 60 dias a contar da compra, sem renovação. Pode ser comprado uma vez em cada período de 12 meses, por conta e por família. Quando expira, a memória continua disponível só para consulta; para adicionar objetos ou perguntar ao Nouk por voz, é preciso subscrever Solo ou Família.</p>
+<h2>6. Direito de livre resolução</h2>
+<p>O serviço é um conteúdo digital fornecido imediatamente após a compra. Ao confirmares a compra, pedes a sua execução imediata e reconheces que renuncias ao teu direito de livre resolução de 14 dias, nos termos do artigo L221-28 do Código do Consumo francês (art. 16.º, alínea m), da Diretiva 2011/83/UE). Os pedidos de reembolso são tratados pela Apple em reportaproblem.apple.com.</p>
+<h2>7. Alterações de preço</h2>
+<p>Em caso de aumento de preço, serás avisado pela Apple e na app antes de se aplicar, com a possibilidade de cancelar.</p>
+<h2>8. Reclamações</h2>
+<p>Para qualquer questão: support@getnouk.app. Resolução de litígios: consulta a <a href="#notice">informação legal</a>.</p>` },
+      privacy: { short: 'Privacidade', title: 'Política de privacidade', html: `
+<h2>1. Responsável pelo tratamento</h2>
+<p>JFB Design, empresa em nome individual, editor do Nouk. Contacto sobre os teus dados: contact@getnouk.app.</p>
+<h2>2. A tua voz</h2>
+<p>A transcrição da tua voz é feita no teu iPhone pelo reconhecimento de voz da Apple. Nenhuma gravação de áudio é enviada para os nossos servidores nem guardada pelo Nouk.</p>
+<h2>3. Dados recolhidos</h2>
+<div class="tbl"><table>
+<thead><tr><th>Dados</th><th>Para quê</th><th>Fundamento jurídico</th></tr></thead>
+<tbody>
+<tr><td>Conta: nome, endereço de e-mail (ou endereço de reencaminhamento da Apple)</td><td>Criar e proteger a tua conta</td><td>Execução do contrato</td></tr>
+<tr><td>Conteúdos: objetos, locais, fotografias, histórico, empréstimos</td><td>Fazer funcionar o serviço e partilhá-lo com a tua família</td><td>Execução do contrato</td></tr>
+<tr><td>Texto das frases ditadas ou escritas</td><td>Identificar o objeto e o local</td><td>Execução do contrato</td></tr>
+<tr><td>Família: membros, funções, convites</td><td>Gerir a partilha e os direitos</td><td>Execução do contrato</td></tr>
+<tr><td>Dispositivo ativo, token de notificações</td><td>Uma só sessão por conta, enviar lembretes</td><td>Interesse legítimo; consentimento para as notificações</td></tr>
+<tr><td>Estado da subscrição (sem dados bancários)</td><td>Dar acesso à tua oferta</td><td>Execução do contrato</td></tr>
+<tr><td>Estatísticas anónimas, se as ativares</td><td>Melhorar a app</td><td>Consentimento</td></tr>
+</tbody>
+</table></div>
+<p>O Nouk não mostra publicidade nem vende dados.</p>
+<h2>4. Quem recebe os teus dados</h2>
+<ul>
+<li><strong>Os membros da tua família</strong>, para os conteúdos partilhados.</li>
+<li><strong>Supabase</strong>: alojamento da base de dados, na União Europeia.</li>
+<li><strong>Anthropic</strong>: análise do texto das tuas frases pelo modelo Claude, para identificar o objeto e o local. Este prestador pode tratar dados fora da União Europeia, com garantias contratuais (cláusulas contratuais-tipo).</li>
+<li><strong>Apple</strong>: início de sessão com a Apple, pagamentos e notificações.</li>
+<li><strong>Gestão de subscrições</strong>: RevenueCat.</li>
+<li><strong>Links de convite</strong>: Branch.</li>
+</ul>
+<h2>5. Conservação</h2>
+<p>Os teus dados são conservados enquanto a tua conta estiver ativa. Depois de apagares a conta, são eliminados no prazo máximo de 30 dias, cópias de segurança incluídas. Se fores titular de uma família e a apagares, os conteúdos da família são eliminados para todos os membros, salvo se transferires a família para outro adulto.</p>
+<h2>6. Os teus direitos</h2>
+<p>Podes aceder aos teus dados, retificá-los, exportá-los (em Definições, depois Privacidade e dados), apagá-los, opor-te a certos tratamentos ou retirar o teu consentimento. Escreve para contact@getnouk.app. Podes também apresentar reclamação à CNIL (cnil.fr), a autoridade francesa de proteção de dados, ou à autoridade do teu país (em Portugal, a CNPD).</p>
+<h2>7. Menores</h2>
+<p>As contas de crianças são criadas por convite de um adulto da família. Abaixo da idade fixada no teu país (15 anos em França, 13 em Portugal) é necessário o consentimento de um titular das responsabilidades parentais.</p>
+<h2>8. Segurança</h2>
+<p>As comunicações são cifradas, o acesso aos dados é limitado por família e por função, e uma conta só pode estar aberta num iPhone de cada vez.</p>
+<h2>9. Este site</h2>
+<p>Este site não utiliza cookies publicitários nem ferramentas de medição de audiência.</p>` }
+    }
+  }
+};
+
+</script>
+
+<script>
+(function () {
+  // Replace with the real App Store listing URL once the app is live.
+  var APP_STORE = 'https://apps.apple.com/';
+  var ORDER = ['fr', 'en', 'de', 'es', 'it', 'nl', 'pt'];
+  var PAGES = ['notice', 'terms', 'sale', 'privacy'];
+  var D = window.I18N;
+  var APPLE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7ZM14.2 5.6c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3Z"/></svg>';
+  var MIC = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3" stroke-width="2"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke-width="2" stroke-linecap="round"/></svg>';
+  var AV = ['#f5d9bf', '#c7dbf5', '#d1edd1'];
+
+  function detect() {
+    try {
+      var ls = navigator.languages || [navigator.language];
+      for (var i = 0; i < ls.length; i++) {
+        var c = String(ls[i] || '').slice(0, 2).toLowerCase();
+        if (D[c]) return c;
+      }
+    } catch (e) {}
+    return 'en';
+  }
+  function parse() {
+    var m = (location.hash || '').slice(1).match(/^([a-z]{2})(?:-([a-z]+))?$/);
+    if (m && D[m[1]] && (!m[2] || PAGES.indexOf(m[2]) >= 0)) return { lang: m[1], page: m[2] || null };
+    return { lang: detect(), page: null };
+  }
+  function map(arr, fn) { return arr.map(fn).join(''); }
+  function store(cls, inner) { return '<a class="btn ' + cls + '" href="' + APP_STORE + '">' + inner + '</a>'; }
+
+  function home(d) {
+    var h = d.hero, p = d.pricing;
+    var first = d.demos[0];
+    function plan(pl) {
+      return '<article class="plan' + (pl.best ? ' best' : '') + '">' +
+        '<div class="plan-top"><h3>' + pl.name + '</h3>' + (pl.badge ? '<span class="badge">' + pl.badge + '</span>' : '') + '</div>' +
+        '<div><p class="price" data-m="' + pl.m + '" data-y="' + pl.y + '"><span>' + pl.y + '</span> <small data-m="' + p.unitM + '" data-y="' + p.unitY + '">' + p.unitY + '</small></p>' +
+        '<p class="per" data-m="' + pl.perM + '" data-y="' + pl.perY + '">' + pl.perY + '</p></div>' +
+        '<ul class="checks">' + map(pl.checks, function (c) { return '<li>' + c + '</li>'; }) + '</ul>' +
+        store(pl.best ? 'btn-dark' : 'btn-ghost', pl.cta) + '</article>';
+    }
+    var ps = p.pass;
+    return '' +
+    '<section class="hero"><div class="wrap"><div class="copy">' +
+      '<span class="eyebrow">' + h.eyebrow + '</span><h1>' + h.title + '</h1><p class="lede">' + h.lede + '</p>' +
+      '<div class="cta-row">' + store('btn-dark', APPLE + h.cta) + '<a class="btn btn-ghost" href="#' + d.code + '" data-goto="pricing">' + h.pricing + '</a></div>' +
+      '<p class="fine">' + h.fine + '</p></div>' +
+      '<div class="stage" id="demo"><div><div class="phone"><div class="screen">' +
+        '<div class="screen-top"><span>Nouk</span><span class="rec">' + first.t + '</span></div>' +
+        '<p class="said" aria-live="polite">' + first.said + '</p>' +
+        '<div class="mic-area"><button class="mic" type="button" aria-label="' + h.micLabel + '">' + MIC + '</button></div>' +
+        '<div class="card"><div class="field"><small class="k1">' + first.k1 + '</small><span class="v1">' + first.v1 + '</span></div>' +
+        '<div class="field"><small class="k2">' + first.k2 + '</small><span class="v2">' + first.v2 + '</span></div></div>' +
+      '</div></div><p class="hint">' + h.hint + '</p><div class="demo-steps" aria-hidden="true"><i class="on"></i><i></i><i></i></div></div></div>' +
+    '</div></section>' +
+
+    '<section class="band alt" id="how"><div class="wrap"><div class="band-head"><span class="eyebrow">' + d.how.eyebrow + '</span><h2>' + d.how.title + '</h2></div>' +
+      '<ol class="steps">' + map(d.how.steps, function (s) { return '<li><h3>' + s.h + '</h3><p class="quote">' + s.q + '</p><p>' + s.p + '</p></li>'; }) + '</ol>' +
+      '<div class="phrases">' + map(d.how.phrases, function (s) { return '<span>' + s + '</span>'; }) + '</div></div></section>' +
+
+    '<section class="band" id="household"><div class="wrap house"><div class="copy"><span class="eyebrow">' + d.house.eyebrow + '</span><h2>' + d.house.title + '</h2><p class="lede">' + d.house.lede + '</p>' +
+      '<ul class="checks">' + map(d.house.checks, function (c) { return '<li>' + c + '</li>'; }) + '</ul></div>' +
+      '<div class="members">' + map(d.house.members, function (m, i) {
+        return '<div class="member"><span class="av" style="background:' + AV[i] + '">' + m.name.charAt(0) + '</span><div><strong>' + m.name + '</strong><small>' + m.sub + '</small></div><span class="role' + (i === 2 ? ' kid' : '') + '">' + m.role + '</span></div>';
+      }) + '</div></div></section>' +
+
+    '<section class="band alt"><div class="wrap"><div class="band-head"><span class="eyebrow">' + d.features.eyebrow + '</span><h2>' + d.features.title + '</h2></div>' +
+      '<div class="features">' + map(d.features.items, function (f) { return '<div class="feature"><h3>' + f.h + '</h3><p>' + f.p + '</p></div>'; }) + '</div></div></section>' +
+
+    '<section class="band"><div class="wrap"><div class="privacy"><div><span class="eyebrow">' + d.privacy.eyebrow + '</span><h2>' + d.privacy.title + '</h2><p>' + d.privacy.p + '</p></div>' +
+      '<ul>' + map(d.privacy.items, function (c) { return '<li>' + c + '</li>'; }) + '</ul></div></div></section>' +
+
+    '<section class="band alt" id="pricing"><div class="wrap"><div class="band-head"><span class="eyebrow">' + p.eyebrow + '</span><h2>' + p.title + '</h2>' +
+      '<div class="toggle" role="group" aria-label="' + p.period + '"><button type="button" data-bill="m" aria-pressed="false">' + p.monthly + '</button><button type="button" data-bill="y" aria-pressed="true">' + p.yearly + '</button></div></div>' +
+      '<div class="plans">' + map(p.plans, plan) +
+        '<article class="plan"><div class="plan-top"><h3>' + ps.name + '</h3></div><div><p class="price">' + ps.price + ' <small>' + ps.unit + '</small></p><p class="per">' + ps.per + '</p></div>' +
+        '<ul class="checks">' + map(ps.checks, function (c) { return '<li>' + c + '</li>'; }) + '</ul>' + store('btn-ghost', ps.cta) + '</article>' +
+      '</div><p class="trial">' + p.trial + '</p></div></section>' +
+
+    '<section class="band" id="faq"><div class="wrap"><div class="band-head"><span class="eyebrow">' + d.faq.eyebrow + '</span><h2>' + d.faq.title + '</h2></div>' +
+      '<div class="faq">' + map(d.faq.items, function (f) { return '<details><summary>' + f.q + '</summary><p>' + f.a + '</p></details>'; }) + '</div></div></section>' +
+
+    '<section class="band alt"><div class="wrap final"><h2>' + d.final.title + '</h2>' + store('btn-dark', APPLE + h.cta) + '<p class="fine">' + d.final.fine + '</p></div></section>';
+  }
+
+  function legal(d, page) {
+    var L = d.legal, pg = L.pages[page];
+    return '<div class="legal"><div class="wrap"><a class="back" href="#' + d.code + '">← ' + L.back + '</a>' +
+      '<h1>' + pg.title + '</h1><p class="meta">' + L.updated + '</p>' +
+      pg.html.replace(/href="#(notice|terms|sale|privacy)"/g, 'href="#' + d.code + '-$1"') + '</div></div>';
+  }
+
+  var state = { lang: 'fr', page: null };
+  var sel = document.getElementById('lang-select');
+  sel.innerHTML = map(ORDER.filter(function (c) { return D[c]; }), function (c) { return '<option value="' + c + '" lang="' + c + '">' + D[c].name + '</option>'; });
+  sel.addEventListener('change', function () {
+    location.hash = sel.value + (state.page ? '-' + state.page : '');
+  });
+
+  function render() {
+    state = parse();
+    var d = D[state.lang];
+    document.documentElement.lang = state.lang;
+    sel.value = state.lang;
+    document.getElementById('lang-label').textContent = d.langLabel;
+    document.getElementById('brand').href = '#' + d.code;
+    document.getElementById('nav-links').innerHTML =
+      '<a href="#' + d.code + '" data-goto="how">' + d.nav.how + '</a>' +
+      '<a href="#' + d.code + '" data-goto="household">' + d.nav.household + '</a>' +
+      '<a href="#' + d.code + '" data-goto="pricing">' + d.nav.pricing + '</a>' +
+      '<a href="#' + d.code + '" data-goto="faq">' + d.nav.faq + '</a>';
+    var dl = document.getElementById('nav-dl'); dl.href = APP_STORE; dl.textContent = d.nav.download;
+    document.getElementById('app').innerHTML = state.page ? legal(d, state.page) : home(d);
+    document.getElementById('foot').innerHTML = '<span>' + d.footer.copy + '</span><nav aria-label="' + d.footer.label + '">' +
+      map(PAGES, function (k) { return '<a href="#' + d.code + '-' + k + '">' + d.legal.pages[k].short + '</a>'; }) + '</nav>';
+    bind(d);
+    if (state.page) window.scrollTo(0, 0);
+  }
+
+  function bind(d) {
+    document.querySelectorAll('[data-goto]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id = a.getAttribute('data-goto');
+        if (state.page) { location.hash = d.code; render(); }
+        var el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    var sec = document.getElementById('pricing');
+    if (sec) sec.querySelectorAll('[data-bill]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var mode = b.getAttribute('data-bill');
+        sec.querySelectorAll('[data-bill]').forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-bill') === mode); });
+        sec.querySelectorAll('.price[data-m]').forEach(function (p) {
+          p.querySelector('span').textContent = p.dataset[mode];
+          var s = p.querySelector('small'); s.textContent = s.dataset[mode];
+        });
+        sec.querySelectorAll('.per[data-m]').forEach(function (p) { p.textContent = p.dataset[mode]; });
+      });
+    });
+    var box = document.getElementById('demo');
+    if (box) demo(box, d.demos);
+  }
+
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  var timer = null;
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function demo(box, list) {
+    clearInterval(timer);
+    var phone = box.querySelector('.phone'), said = box.querySelector('.said');
+    var dots = box.querySelectorAll('.demo-steps i');
+    var i = 0, busy = false;
+    function q(c) { return box.querySelector(c); }
+    phone.classList.add('done');
+    function setCard(x) {
+      q('.k1').textContent = x.k1; q('.v1').textContent = x.v1;
+      q('.k2').textContent = x.k2; q('.v2').textContent = x.v2;
+      q('.rec').textContent = x.t;
+      dots.forEach(function (dot, n) { dot.classList.toggle('on', n === i); });
+    }
+    q('.mic').addEventListener('click', function () {
+      if (busy) return; busy = true;
+      i = (i + 1) % list.length; var x = list[i];
+      phone.classList.remove('done'); setCard(x);
+      if (reduce) { said.textContent = x.said; phone.classList.add('done'); busy = false; return; }
+      phone.classList.add('listening');
+      var n = 0; said.innerHTML = '<span class="caret"></span>';
+      timer = setInterval(function () {
+        n += 2;
+        said.innerHTML = esc(x.said.slice(0, n)) + '<span class="caret"></span>';
+        if (n >= x.said.length) {
+          clearInterval(timer);
+          setTimeout(function () { said.textContent = x.said; phone.classList.remove('listening'); phone.classList.add('done'); busy = false; }, 450);
+        }
+      }, 45);
+    });
+  }
+
+  window.addEventListener('hashchange', render);
+  render();
+})();
+</script>
+
+</body>
+</html>
